@@ -22,17 +22,18 @@ export default async function Header() {
                   await signOut({ redirectTo: "/" });
                 }}
               >
-                <button className="text-cream-50/80 hover:text-cream-50">
-                  Log Out
-                </button>
+                <button className="text-cream-50/80 hover:text-cream-50">Log Out</button>
               </form>
             </>
           ) : (
             <Link href="/login">Log In</Link>
           )}
-          <span className="rounded-full bg-marigold-500 px-4 py-2 font-semibold text-coffee-950">
+          <Link
+            href="/sell"
+            className="rounded-full bg-marigold-500 px-4 py-2 font-semibold text-coffee-950"
+          >
             Sell an item
-          </span>
+          </Link>
         </nav>
 
         <button className="text-cream-50 md:hidden" aria-label="Search">

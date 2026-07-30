@@ -16,10 +16,10 @@ export default async function BottomNav() {
         <Search className="h-6 w-6" />
         <span className="text-xs">Search</span>
       </button>
-      <button className="flex flex-col items-center gap-1 px-3 py-1 text-marigold-600">
+      <Link href="/sell" className="flex flex-col items-center gap-1 px-3 py-1 text-marigold-600">
         <PlusCircle className="h-7 w-7" />
         <span className="text-xs font-medium">Sell</span>
-      </button>
+      </Link>
       <button className="flex flex-col items-center gap-1 px-3 py-1 text-coffee-950/60">
         <Heart className="h-6 w-6" />
         <span className="text-xs">Saved</span>
