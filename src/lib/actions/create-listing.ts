@@ -50,6 +50,11 @@ export async function createListingDraft(
 
   if (!phone) return { error: "Phone number is required.", success: false };
 
+  const photos = formData.getAll("photos") as string[];
+  if (photos.length === 0) {
+    return { error: "Add at least one photo.", success: false };
+  }
+
   console.log("Validated listing (photos + save arrive Day 13-14):", {
     title,
     category,

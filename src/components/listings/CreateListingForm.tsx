@@ -4,6 +4,7 @@ import { useActionState } from "react";
 import Input from "@/components/ui/Input";
 import Select from "@/components/ui/Select";
 import Button from "@/components/ui/Button";
+import PhotoUpload from "@/components/listings/PhotoUpload";
 import { CATEGORIES, PAYMENT_METHODS } from "@/lib/constants";
 import { createListingDraft } from "@/lib/actions/create-listing";
 
@@ -98,13 +99,10 @@ export default function CreateListingForm() {
         <Input id="phone" name="phone" type="tel" required placeholder="+251 9XX XXX XXX" />
       </div>
 
-      <div className="rounded-xl border border-dashed border-coffee-950/20 p-4 text-center text-sm text-coffee-950/50">
-        Photo upload arrives on Day 13
-      </div>
-
       {state.error && (
         <p className="rounded-lg bg-brick-600/10 px-3 py-2 text-sm text-brick-600">{state.error}</p>
       )}
+      <PhotoUpload />
       {state.success && (
         <p className="rounded-lg bg-eucalyptus-600/10 px-3 py-2 text-sm text-eucalyptus-600">
           Looks good — once photos are wired up (Day 13-14), this same form will actually publish your listing.
