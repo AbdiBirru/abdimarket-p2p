@@ -6,10 +6,10 @@ import Select from "@/components/ui/Select";
 import Button from "@/components/ui/Button";
 import PhotoUpload from "@/components/listings/PhotoUpload";
 import { CATEGORIES, PAYMENT_METHODS } from "@/lib/constants";
-import { createListingDraft } from "@/lib/actions/create-listing";
+import { createListing } from "@/lib/actions/create-listing";
 
 export default function CreateListingForm() {
-  const [state, formAction, isPending] = useActionState(createListingDraft, {
+  const [state, formAction, isPending] = useActionState(createListing, {
     error: null,
     success: false,
   });
@@ -99,18 +99,20 @@ export default function CreateListingForm() {
         <Input id="phone" name="phone" type="tel" required placeholder="+251 9XX XXX XXX" />
       </div>
 
+      <PhotoUpload />
+
       {state.error && (
         <p className="rounded-lg bg-brick-600/10 px-3 py-2 text-sm text-brick-600">{state.error}</p>
       )}
-      <PhotoUpload />
       {state.success && (
         <p className="rounded-lg bg-eucalyptus-600/10 px-3 py-2 text-sm text-eucalyptus-600">
-          Looks good — once photos are wired up (Day 13-14), this same form will actually publish your listing.
+          Listing saved. Refresh this page to add another test listing — the homepage grid
+          starts showing real listings on Day 15.
         </p>
       )}
 
       <Button type="submit" disabled={isPending} className="w-full">
-        {isPending ? "Checking..." : "Continue"}
+        {isPending ? "Publishing..." : "Publish listing"}
       </Button>
     </form>
   );

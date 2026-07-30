@@ -1,14 +1,18 @@
 "use server";
 
 import { auth } from "@/auth";
+import { prisma } from "@/lib/prisma";
 import { CATEGORIES, PAYMENT_METHODS } from "@/lib/constants";
+
+type CategoryValue = (typeof CATEGORIES)[number]["value"];
+type PaymentMethodValue = (typeof PAYMENT_METHODS)[number]["value"];
 
 export type CreateListingState = {
   error: string | null;
   success: boolean;
 };
 
-export async function createListingDraft(
+export async function createListing(
   _prevState: CreateListingState,
   formData: FormData
 ): Promise<CreateListingState> {
@@ -25,6 +29,7 @@ export async function createListingDraft(
   const paymentMethods = formData.getAll("paymentMethods") as string[];
   const deliveryAvailable = formData.get("deliveryAvailable") === "yes";
   const phone = (formData.get("phone") as string)?.trim();
+  const photos = formData.getAll("photos") as string[];
 
   if (!title) return { error: "Title is required.", success: false };
 
@@ -50,19 +55,22 @@ export async function createListingDraft(
 
   if (!phone) return { error: "Phone number is required.", success: false };
 
-  const photos = formData.getAll("photos") as string[];
   if (photos.length === 0) {
     return { error: "Add at least one photo.", success: false };
   }
 
-  console.log("Validated listing (photos + save arrive Day 13-14):", {
-    title,
-    category,
-    price: negotiable ? null : Number(priceRaw),
-    location,
-    paymentMethods,
-    deliveryAvailable,
-    phone,
+  await prisma.listing.create({
+    data: {
+      title,
+      category: category as CategoryValue,
+      price: negotiable ? null : Number(priceRaw),
+      location,
+      paymentMethods: paymentMethods as PaymentMethodValue[],
+      deliveryAvailable,
+      phone,
+      photos,
+      sellerId: session.user.id,
+    },
   });
 
   return { error: null, success: true };
