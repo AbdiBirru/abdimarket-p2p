@@ -6,13 +6,15 @@ import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import { loginUser } from "@/lib/actions/login";
 
-export default function LoginForm() {
+export default function LoginForm({ callbackUrl }: { callbackUrl?: string }) {
   const [state, formAction, isPending] = useActionState(loginUser, {
     error: null,
   });
 
   return (
     <form action={formAction} className="space-y-4">
+      <input type="hidden" name="redirectTo" value={callbackUrl ?? "/"} />
+
       <div>
         <label htmlFor="email" className="mb-1 block text-sm font-medium text-coffee-950">
           Email

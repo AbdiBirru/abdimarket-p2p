@@ -1,7 +1,13 @@
 import Card from "@/components/ui/Card";
 import LoginForm from "@/components/auth/LoginForm";
 
-export default function LoginPage() {
+export default async function LoginPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ callbackUrl?: string }>;
+}) {
+  const { callbackUrl } = await searchParams;
+
   return (
     <div className="mx-auto max-w-md px-4 py-10">
       <h1 className="font-display text-2xl font-bold text-coffee-950">
@@ -11,7 +17,7 @@ export default function LoginPage() {
         Log in to manage your listings and saved items.
       </p>
       <Card className="mt-6 p-5">
-        <LoginForm />
+        <LoginForm callbackUrl={callbackUrl} />
       </Card>
     </div>
   );
