@@ -1,0 +1,39 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Category {
+  ELECTRONICS
+  CLOTHING
+  HOME
+  ACCESSORIES
+  VEHICLES
+  BOOKS
+  FOOD
+  SERVICES
+  OTHER
+}
+
+model User {
+  id        String    @id @default(cuid())
+  email     String    @unique
+  password  String
+  name      String
+  createdAt DateTime  @default(now())
+  listings  Listing[]
+}
+
+model Listing {
+  id        String   @id @default(cuid())
+  title     String
+  price     Int?
+  category  Category
+  createdAt DateTime @default(now())
+  seller    User     @relation(fields: [sellerId], references: [id])
+  sellerId  String
+}
