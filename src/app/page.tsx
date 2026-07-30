@@ -1,7 +1,11 @@
 import ListingGrid from "@/components/listings/ListingGrid";
-import { mockListings } from "@/lib/mock-listings";
+import { getActiveListings } from "@/lib/listings";
 
-export default function HomePage() {
+export const dynamic = "force-dynamic";
+
+export default async function HomePage() {
+  const listings = await getActiveListings();
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-6">
       <div className="mb-6">
@@ -12,7 +16,7 @@ export default function HomePage() {
           Browse listings from sellers across Ethiopia. Contact them directly — no middleman.
         </p>
       </div>
-      <ListingGrid listings={mockListings} />
+      <ListingGrid listings={listings} />
     </div>
   );
 }

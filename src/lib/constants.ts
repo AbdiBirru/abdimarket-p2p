@@ -17,3 +17,7 @@ export const PAYMENT_METHODS = [
   { value: "BANK_TRANSFER", label: "Bank Transfer" },
   { value: "OTHER", label: "Other" },
 ] as const;
+
+export function getCategoryLabel(value: string) {
+  return CATEGORIES.find((c) => c.value === value)?.label ?? value;
+}

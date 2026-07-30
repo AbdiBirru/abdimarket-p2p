@@ -2,9 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import Card from "@/components/ui/Card";
 import { formatPrice } from "@/lib/utils";
-import { type Listing } from "@/types/listing";
+import { getCategoryLabel } from "@/lib/constants";
+import { type ListingCardData } from "@/lib/listings";
 
-export default function ListingCard({ listing }: { listing: Listing }) {
+export default function ListingCard({ listing }: { listing: ListingCardData }) {
   return (
     <Link
       href={`/listings/${listing.id}`}
@@ -22,7 +23,7 @@ export default function ListingCard({ listing }: { listing: Listing }) {
         </div>
         <div className="p-3">
           <p className="truncate text-xs font-medium uppercase tracking-wide text-marigold-600">
-            {listing.category}
+            {getCategoryLabel(listing.category)}
           </p>
           <h3 className="mt-1 line-clamp-2 text-sm font-semibold text-coffee-950">
             {listing.title}

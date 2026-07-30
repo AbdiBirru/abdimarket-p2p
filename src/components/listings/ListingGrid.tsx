@@ -1,7 +1,7 @@
 import ListingCard from "./ListingCard";
-import { type Listing } from "@/types/listing";
+import { type ListingCardData } from "@/lib/listings";
 
-export default function ListingGrid({ listings }: { listings: Listing[] }) {
+export default function ListingGrid({ listings }: { listings: ListingCardData[] }) {
   if (listings.length === 0) {
     return (
       <p className="py-12 text-center text-sm text-coffee-950/60">
