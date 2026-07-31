@@ -36,9 +36,9 @@ export default async function Header() {
           </Link>
         </nav>
 
-        <button className="text-cream-50 md:hidden" aria-label="Search">
+        <Link href="/" className="text-cream-50 md:hidden" aria-label="Search listings">
           <Search className="h-6 w-6" />
-        </button>
+        </Link>
       </div>
       <div className="trim-strip" />
     </header>

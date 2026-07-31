@@ -1,8 +1,11 @@
 import { prisma } from "@/lib/prisma";
 
-export async function getActiveListings(userId: string | null = null) {
+export async function getActiveListings(userId: string | null = null, query?: string) {
   const listings = await prisma.listing.findMany({
-    where: { status: "ACTIVE" },
+    where: {
+      status: "ACTIVE",
+      ...(query ? { title: { contains: query, mode: "insensitive" } } : {}),
+    },
     orderBy: { createdAt: "desc" },
     select: {
       id: true,
