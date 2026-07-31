@@ -3,12 +3,26 @@ import { CATEGORIES } from "@/lib/constants";
 
 type CategoryValue = (typeof CATEGORIES)[number]["value"];
 
+export const PAGE_SIZE = 12;
+
 type ListingFilters = {
   query?: string;
   category?: string;
   location?: string;
   sort?: string;
 };
+
+function buildWhere(filters: ListingFilters) {
+  const { query, category, location } = filters;
+  return {
+    status: "ACTIVE" as const,
+    ...(query ? { title: { contains: query, mode: "insensitive" as const } } : {}),
+    ...(category && CATEGORIES.some((c) => c.value === category)
+      ? { category: category as CategoryValue }
+      : {}),
+    ...(location ? { location } : {}),
+  };
+}
 
 function getOrderBy(sort?: string) {
   switch (sort) {
@@ -23,20 +37,14 @@ function getOrderBy(sort?: string) {
 
 export async function getActiveListings(
   userId: string | null = null,
-  filters: ListingFilters = {}
+  filters: ListingFilters = {},
+  page = 1
 ) {
-  const { query, category, location, sort } = filters;
-
   const listings = await prisma.listing.findMany({
-    where: {
-      status: "ACTIVE",
-      ...(query ? { title: { contains: query, mode: "insensitive" } } : {}),
-      ...(category && CATEGORIES.some((c) => c.value === category)
-        ? { category: category as CategoryValue }
-        : {}),
-      ...(location ? { location } : {}),
-    },
-    orderBy: getOrderBy(sort),
+    where: buildWhere(filters),
+    orderBy: getOrderBy(filters.sort),
+    skip: (page - 1) * PAGE_SIZE,
+    take: PAGE_SIZE,
     select: {
       id: true,
       title: true,
@@ -57,6 +65,10 @@ export async function getActiveListings(
 }
 
 export type ListingCardData = Awaited<ReturnType<typeof getActiveListings>>[number];
+
+export async function getActiveListingsCount(filters: ListingFilters = {}) {
+  return prisma.listing.count({ where: buildWhere(filters) });
+}
 
 export async function getDistinctLocations() {
   const results = await prisma.listing.findMany({

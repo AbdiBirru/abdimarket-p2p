@@ -4,7 +4,8 @@ import SearchBar from "@/components/listings/SearchBar";
 import CategoryFilter from "@/components/listings/CategoryFilter";
 import LocationFilter from "@/components/listings/LocationFilter";
 import SortSelect from "@/components/listings/SortSelect";
-import { getActiveListings, getDistinctLocations } from "@/lib/listings";
+import PaginationControls from "@/components/listings/PaginationControls";
+import { getActiveListings, getActiveListingsCount, getDistinctLocations, PAGE_SIZE } from "@/lib/listings";
 import { auth } from "@/auth";
 
 export const dynamic = "force-dynamic";
@@ -12,16 +13,26 @@ export const dynamic = "force-dynamic";
 export default async function HomePage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string; category?: string; location?: string; sort?: string }>;
+  searchParams: Promise<{
+    q?: string;
+    category?: string;
+    location?: string;
+    sort?: string;
+    page?: string;
+  }>;
 }) {
-  const { q, category, location, sort } = await searchParams;
+  const { q, category, location, sort, page: pageParam } = await searchParams;
   const session = await auth();
+  const page = Math.max(1, Number(pageParam) || 1);
+  const filters = { query: q, category, location, sort };
 
-  const [listings, locations] = await Promise.all([
-    getActiveListings(session?.user?.id ?? null, { query: q, category, location, sort }),
+  const [listings, totalCount, locations] = await Promise.all([
+    getActiveListings(session?.user?.id ?? null, filters, page),
+    getActiveListingsCount(filters),
     getDistinctLocations(),
   ]);
 
+  const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE));
   const hasFilters = !!(q || category || location);
 
   return (
@@ -62,6 +73,12 @@ export default async function HomePage({
             ? "No listings match your filters."
             : "No listings yet — be the first to sell something here."
         }
+      />
+
+      <PaginationControls
+        currentPage={page}
+        totalPages={totalPages}
+        searchParams={{ q, category, location, sort }}
       />
     </div>
   );
