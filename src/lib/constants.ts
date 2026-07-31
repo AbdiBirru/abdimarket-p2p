@@ -21,3 +21,7 @@ export const PAYMENT_METHODS = [
 export function getCategoryLabel(value: string) {
   return CATEGORIES.find((c) => c.value === value)?.label ?? value;
 }
+
+export function getPaymentMethodLabel(value: string) {
+  return PAYMENT_METHODS.find((p) => p.value === value)?.label ?? value;
+}
