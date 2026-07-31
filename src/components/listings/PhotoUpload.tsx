@@ -8,8 +8,10 @@ const MAX_PHOTOS = 6;
 
 type UploadedPhoto = { url: string; uploading: boolean; error?: string };
 
-export default function PhotoUpload() {
-  const [photos, setPhotos] = useState<UploadedPhoto[]>([]);
+export default function PhotoUpload({ initialPhotos = [] }: { initialPhotos?: string[] }) {
+  const [photos, setPhotos] = useState<UploadedPhoto[]>(
+    initialPhotos.map((url) => ({ url, uploading: false }))
+  );
   const inputRef = useRef<HTMLInputElement>(null);
 
   async function handleFiles(files: FileList | null) {

@@ -31,6 +31,7 @@ export function getListingById(id: string) {
       phone: true,
       status: true,
       createdAt: true,
+      sellerId: true,
       seller: {
         select: { name: true },
       },
