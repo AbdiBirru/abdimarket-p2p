@@ -33,6 +33,20 @@ enum ListingStatus {
   REMOVED
 }
 
+enum ReportReason {
+  PROHIBITED_ITEM
+  SCAM_OR_FRAUD
+  SPAM
+  INAPPROPRIATE
+  OTHER
+}
+
+enum ReportStatus {
+  PENDING
+  RESOLVED
+  DISMISSED
+}
+
 model User {
   id            String         @id @default(cuid())
   email         String         @unique
@@ -41,6 +55,7 @@ model User {
   createdAt     DateTime       @default(now())
   listings      Listing[]
   savedListings SavedListing[]
+  reports       Report[]
 }
 
 model Listing {
@@ -59,6 +74,7 @@ model Listing {
   seller            User            @relation(fields: [sellerId], references: [id])
   sellerId          String
   savedBy           SavedListing[]
+  reports           Report[]
 
   @@index([status, category])
   @@index([createdAt])
@@ -74,4 +90,19 @@ model SavedListing {
   listing Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
 
   @@unique([userId, listingId])
+}
+
+model Report {
+  id         String       @id @default(cuid())
+  reason     ReportReason
+  details    String?
+  status     ReportStatus @default(PENDING)
+  createdAt  DateTime     @default(now())
+
+  listing    Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  listingId  String
+  reporter   User    @relation(fields: [reporterId], references: [id], onDelete: Cascade)
+  reporterId String
+
+  @@unique([listingId, reporterId])
 }

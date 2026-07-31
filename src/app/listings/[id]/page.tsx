@@ -7,6 +7,7 @@ import { formatPrice } from "@/lib/utils";
 import Card from "@/components/ui/Card";
 import PhotoGallery from "@/components/listings/PhotoGallery";
 import SaveButton from "@/components/listings/SaveButton";
+import ReportButton from "@/components/listings/ReportButton";
 
 export const dynamic = "force-dynamic";
 
@@ -53,7 +54,7 @@ export default async function ListingDetailPage({
         <p className="text-sm text-coffee-950/60">{listing.location}</p>
 
         
-        <a  href={`tel:${listing.phone}`}
+         <a href={`tel:${listing.phone}`}
           className="mt-3 flex items-center justify-center rounded-full bg-marigold-500 px-4 py-2.5 text-sm font-semibold text-coffee-950"
         >
           Call {listing.phone}
@@ -78,6 +79,8 @@ export default async function ListingDetailPage({
           {listing.deliveryAvailable ? "Delivery available" : "Pickup only"}
         </div>
       </Card>
+
+      <ReportButton listingId={listing.id} isLoggedIn={!!session?.user} />
     </div>
   );
 }

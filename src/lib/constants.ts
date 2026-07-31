@@ -25,3 +25,11 @@ export function getCategoryLabel(value: string) {
 export function getPaymentMethodLabel(value: string) {
   return PAYMENT_METHODS.find((p) => p.value === value)?.label ?? value;
 }
+
+export const REPORT_REASONS = [
+  { value: "PROHIBITED_ITEM", label: "Prohibited item" },
+  { value: "SCAM_OR_FRAUD", label: "Scam or fraud" },
+  { value: "SPAM", label: "Spam" },
+  { value: "INAPPROPRIATE", label: "Inappropriate content" },
+  { value: "OTHER", label: "Other" },
+] as const;
