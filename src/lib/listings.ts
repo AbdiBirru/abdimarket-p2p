@@ -147,3 +147,12 @@ export async function getSavedListings(userId: string) {
 
   return saved.map(({ listing }) => ({ ...listing, isSaved: true }));
 }
+
+export async function getSellerRating(sellerId: string) {
+  const result = await prisma.review.aggregate({
+    where: { sellerId },
+    _avg: { rating: true },
+    _count: true,
+  });
+  return { average: result._avg.rating, count: result._count };
+}

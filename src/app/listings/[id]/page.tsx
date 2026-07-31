@@ -1,13 +1,15 @@
 import { notFound } from "next/navigation";
 import { Truck } from "lucide-react";
 import { auth } from "@/auth";
-import { getListingById } from "@/lib/listings";
+import { getListingById, getSellerRating } from "@/lib/listings";
 import { getCategoryLabel, getPaymentMethodLabel } from "@/lib/constants";
 import { formatPrice } from "@/lib/utils";
 import Card from "@/components/ui/Card";
 import PhotoGallery from "@/components/listings/PhotoGallery";
 import SaveButton from "@/components/listings/SaveButton";
 import ReportButton from "@/components/listings/ReportButton";
+import ReviewButton from "@/components/listings/ReviewButton";
+import RatingDisplay from "@/components/listings/RatingDisplay";
 
 export const dynamic = "force-dynamic";
 
@@ -23,6 +25,8 @@ export default async function ListingDetailPage({
   if (!listing) {
     notFound();
   }
+
+  const rating = await getSellerRating(listing.sellerId);
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-6">
@@ -50,11 +54,23 @@ export default async function ListingDetailPage({
       </div>
 
       <Card className="mt-5 p-4">
-        <p className="text-sm font-semibold text-coffee-950">{listing.seller.name}</p>
-        <p className="text-sm text-coffee-950/60">{listing.location}</p>
+        <div className="flex items-start justify-between gap-3">
+          <div>
+            <p className="text-sm font-semibold text-coffee-950">{listing.seller.name}</p>
+            <p className="text-sm text-coffee-950/60">{listing.location}</p>
+            <div className="mt-1">
+              <RatingDisplay average={rating.average} count={rating.count} />
+            </div>
+          </div>
+          <ReviewButton
+            sellerId={listing.sellerId}
+            isLoggedIn={!!session?.user}
+            isOwnListing={session?.user?.id === listing.sellerId}
+          />
+        </div>
 
         
-         <a href={`tel:${listing.phone}`}
+          <a href={`tel:${listing.phone}`}
           className="mt-3 flex items-center justify-center rounded-full bg-marigold-500 px-4 py-2.5 text-sm font-semibold text-coffee-950"
         >
           Call {listing.phone}

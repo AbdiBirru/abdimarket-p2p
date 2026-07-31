@@ -48,14 +48,16 @@ enum ReportStatus {
 }
 
 model User {
-  id            String         @id @default(cuid())
-  email         String         @unique
-  password      String
-  name          String
-  createdAt     DateTime       @default(now())
-  listings      Listing[]
-  savedListings SavedListing[]
-  reports       Report[]
+  id              String         @id @default(cuid())
+  email           String         @unique
+  password        String
+  name            String
+  createdAt       DateTime       @default(now())
+  listings        Listing[]
+  savedListings   SavedListing[]
+  reports         Report[]
+  reviewsReceived Review[]       @relation("SellerReviews")
+  reviewsWritten  Review[]       @relation("ReviewerReviews")
 }
 
 model Listing {
@@ -105,4 +107,18 @@ model Report {
   reporterId String
 
   @@unique([listingId, reporterId])
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  rating    Int
+  comment   String?
+  createdAt DateTime @default(now())
+
+  seller     User   @relation("SellerReviews", fields: [sellerId], references: [id], onDelete: Cascade)
+  sellerId   String
+  reviewer   User   @relation("ReviewerReviews", fields: [reviewerId], references: [id], onDelete: Cascade)
+  reviewerId String
+
+  @@unique([sellerId, reviewerId])
 }
