@@ -39,3 +39,19 @@ export function getListingById(id: string) {
 }
 
 export type ListingDetailData = NonNullable<Awaited<ReturnType<typeof getListingById>>>;
+
+export function getMyListings(sellerId: string) {
+  return prisma.listing.findMany({
+    where: { sellerId },
+    orderBy: { createdAt: "desc" },
+    select: {
+      id: true,
+      title: true,
+      photos: true,
+      price: true,
+      status: true,
+    },
+  });
+}
+
+export type MyListingData = Awaited<ReturnType<typeof getMyListings>>[number];
