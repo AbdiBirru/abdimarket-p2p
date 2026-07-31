@@ -34,12 +34,13 @@ enum ListingStatus {
 }
 
 model User {
-  id        String    @id @default(cuid())
-  email     String    @unique
-  password  String
-  name      String
-  createdAt DateTime  @default(now())
-  listings  Listing[]
+  id            String         @id @default(cuid())
+  email         String         @unique
+  password      String
+  name          String
+  createdAt     DateTime       @default(now())
+  listings      Listing[]
+  savedListings SavedListing[]
 }
 
 model Listing {
@@ -57,7 +58,20 @@ model Listing {
   updatedAt         DateTime        @updatedAt
   seller            User            @relation(fields: [sellerId], references: [id])
   sellerId          String
+  savedBy           SavedListing[]
 
   @@index([status, category])
   @@index([createdAt])
+}
+
+model SavedListing {
+  id        String   @id @default(cuid())
+  userId    String
+  listingId String
+  createdAt DateTime @default(now())
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  listing Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, listingId])
 }

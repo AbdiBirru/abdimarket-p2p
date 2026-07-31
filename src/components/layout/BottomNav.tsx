@@ -20,10 +20,10 @@ export default async function BottomNav() {
         <PlusCircle className="h-7 w-7" />
         <span className="text-xs font-medium">Sell</span>
       </Link>
-      <button className="flex flex-col items-center gap-1 px-3 py-1 text-coffee-950/60">
+      <Link href="/saved" className="flex flex-col items-center gap-1 px-3 py-1 text-coffee-950/60">
         <Heart className="h-6 w-6" />
         <span className="text-xs">Saved</span>
-      </button>
+      </Link>
       <Link href={accountHref} className="flex flex-col items-center gap-1 px-3 py-1 text-coffee-950/60">
         <User className="h-6 w-6" />
         <span className="text-xs">{session?.user ? "Account" : "Log In"}</span>

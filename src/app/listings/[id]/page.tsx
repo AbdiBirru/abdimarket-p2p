@@ -1,10 +1,12 @@
 import { notFound } from "next/navigation";
-import { Truck, Heart } from "lucide-react";
+import { Truck } from "lucide-react";
+import { auth } from "@/auth";
 import { getListingById } from "@/lib/listings";
 import { getCategoryLabel, getPaymentMethodLabel } from "@/lib/constants";
 import { formatPrice } from "@/lib/utils";
 import Card from "@/components/ui/Card";
 import PhotoGallery from "@/components/listings/PhotoGallery";
+import SaveButton from "@/components/listings/SaveButton";
 
 export const dynamic = "force-dynamic";
 
@@ -14,7 +16,8 @@ export default async function ListingDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const listing = await getListingById(id);
+  const session = await auth();
+  const listing = await getListingById(id, session?.user?.id ?? null);
 
   if (!listing) {
     notFound();
@@ -37,14 +40,12 @@ export default async function ListingDetailPage({
           </p>
         </div>
 
-        <button
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-coffee-950/15 text-coffee-950/50"
-          aria-label="Save listing"
-          disabled
-          title="Saving arrives on Day 19"
-        >
-          <Heart className="h-5 w-5" />
-        </button>
+        <SaveButton
+          listingId={listing.id}
+          initialSaved={listing.isSaved}
+          isLoggedIn={!!session?.user}
+          size="lg"
+        />
       </div>
 
       <Card className="mt-5 p-4">
@@ -52,8 +53,7 @@ export default async function ListingDetailPage({
         <p className="text-sm text-coffee-950/60">{listing.location}</p>
 
         
-        <a
-          href={`tel:${listing.phone}`}
+        <a  href={`tel:${listing.phone}`}
           className="mt-3 flex items-center justify-center rounded-full bg-marigold-500 px-4 py-2.5 text-sm font-semibold text-coffee-950"
         >
           Call {listing.phone}

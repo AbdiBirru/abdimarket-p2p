@@ -1,10 +1,12 @@
 import ListingGrid from "@/components/listings/ListingGrid";
 import { getActiveListings } from "@/lib/listings";
+import { auth } from "@/auth";
 
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
-  const listings = await getActiveListings();
+  const session = await auth();
+  const listings = await getActiveListings(session?.user?.id ?? null);
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-6">
@@ -16,7 +18,7 @@ export default async function HomePage() {
           Browse listings from sellers across Ethiopia. Contact them directly — no middleman.
         </p>
       </div>
-      <ListingGrid listings={listings} />
+      <ListingGrid listings={listings} isLoggedIn={!!session?.user} />
     </div>
   );
 }
