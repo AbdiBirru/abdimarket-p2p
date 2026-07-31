@@ -7,13 +7,25 @@ type ListingFilters = {
   query?: string;
   category?: string;
   location?: string;
+  sort?: string;
 };
+
+function getOrderBy(sort?: string) {
+  switch (sort) {
+    case "price-asc":
+      return { price: { sort: "asc" as const, nulls: "last" as const } };
+    case "price-desc":
+      return { price: { sort: "desc" as const, nulls: "last" as const } };
+    default:
+      return { createdAt: "desc" as const };
+  }
+}
 
 export async function getActiveListings(
   userId: string | null = null,
   filters: ListingFilters = {}
 ) {
-  const { query, category, location } = filters;
+  const { query, category, location, sort } = filters;
 
   const listings = await prisma.listing.findMany({
     where: {
@@ -24,7 +36,7 @@ export async function getActiveListings(
         : {}),
       ...(location ? { location } : {}),
     },
-    orderBy: { createdAt: "desc" },
+    orderBy: getOrderBy(sort),
     select: {
       id: true,
       title: true,
