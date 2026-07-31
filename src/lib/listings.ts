@@ -1,10 +1,28 @@
 import { prisma } from "@/lib/prisma";
+import { CATEGORIES } from "@/lib/constants";
 
-export async function getActiveListings(userId: string | null = null, query?: string) {
+type CategoryValue = (typeof CATEGORIES)[number]["value"];
+
+type ListingFilters = {
+  query?: string;
+  category?: string;
+  location?: string;
+};
+
+export async function getActiveListings(
+  userId: string | null = null,
+  filters: ListingFilters = {}
+) {
+  const { query, category, location } = filters;
+
   const listings = await prisma.listing.findMany({
     where: {
       status: "ACTIVE",
       ...(query ? { title: { contains: query, mode: "insensitive" } } : {}),
+      ...(category && CATEGORIES.some((c) => c.value === category)
+        ? { category: category as CategoryValue }
+        : {}),
+      ...(location ? { location } : {}),
     },
     orderBy: { createdAt: "desc" },
     select: {
@@ -27,6 +45,16 @@ export async function getActiveListings(userId: string | null = null, query?: st
 }
 
 export type ListingCardData = Awaited<ReturnType<typeof getActiveListings>>[number];
+
+export async function getDistinctLocations() {
+  const results = await prisma.listing.findMany({
+    where: { status: "ACTIVE" },
+    select: { location: true },
+    distinct: ["location"],
+    orderBy: { location: "asc" },
+  });
+  return results.map((r) => r.location);
+}
 
 export async function getListingById(id: string, userId: string | null = null) {
   const listing = await prisma.listing.findUnique({

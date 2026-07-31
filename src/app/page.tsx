@@ -1,7 +1,9 @@
 import { Suspense } from "react";
 import ListingGrid from "@/components/listings/ListingGrid";
 import SearchBar from "@/components/listings/SearchBar";
-import { getActiveListings } from "@/lib/listings";
+import CategoryFilter from "@/components/listings/CategoryFilter";
+import LocationFilter from "@/components/listings/LocationFilter";
+import { getActiveListings, getDistinctLocations } from "@/lib/listings";
 import { auth } from "@/auth";
 
 export const dynamic = "force-dynamic";
@@ -9,11 +11,17 @@ export const dynamic = "force-dynamic";
 export default async function HomePage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string }>;
+  searchParams: Promise<{ q?: string; category?: string; location?: string }>;
 }) {
-  const { q } = await searchParams;
+  const { q, category, location } = await searchParams;
   const session = await auth();
-  const listings = await getActiveListings(session?.user?.id ?? null, q);
+
+  const [listings, locations] = await Promise.all([
+    getActiveListings(session?.user?.id ?? null, { query: q, category, location }),
+    getDistinctLocations(),
+  ]);
+
+  const hasFilters = !!(q || category || location);
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-6">
@@ -26,9 +34,19 @@ export default async function HomePage({
         </p>
       </div>
 
-      <div className="mb-5">
+      <div className="mb-3">
         <Suspense fallback={<div className="h-11 rounded-full border border-coffee-950/15 bg-white" />}>
           <SearchBar />
+        </Suspense>
+      </div>
+
+      <div className="mb-3">
+        <CategoryFilter currentQuery={q} currentLocation={location} activeCategory={category} />
+      </div>
+
+      <div className="mb-5">
+        <Suspense fallback={<div className="h-11 w-40 rounded-xl border border-coffee-950/15 bg-white" />}>
+          <LocationFilter locations={locations} />
         </Suspense>
       </div>
 
@@ -36,8 +54,8 @@ export default async function HomePage({
         listings={listings}
         isLoggedIn={!!session?.user}
         emptyMessage={
-          q
-            ? `No listings match "${q}".`
+          hasFilters
+            ? "No listings match your filters."
             : "No listings yet — be the first to sell something here."
         }
       />
