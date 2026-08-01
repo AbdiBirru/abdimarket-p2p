@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useActionState } from "react";
+import { useActionState } from "react";
 import Link from "next/link";
 import Input from "@/components/ui/Input";
 import Select from "@/components/ui/Select";
@@ -8,12 +8,10 @@ import Button from "@/components/ui/Button";
 import PhotoUpload from "@/components/listings/PhotoUpload";
 import ListingDetailFields from "@/components/listings/ListingDetailFields";
 import { CATEGORIES, PAYMENT_METHODS } from "@/lib/constants";
-import { parseListingDetails } from "@/lib/utils";
 import { updateListing } from "@/lib/actions/manage-listing";
 import { type ListingDetailData } from "@/lib/listings";
 
 export default function EditListingForm({ listing }: { listing: ListingDetailData }) {
-  const [category, setCategory] = useState(listing.category);
   const updateListingWithId = updateListing.bind(null, listing.id);
   const [state, formAction, isPending] = useActionState(updateListingWithId, {
     error: null,
@@ -23,23 +21,17 @@ export default function EditListingForm({ listing }: { listing: ListingDetailDat
   return (
     <form action={formAction} className="space-y-5">
       <div>
-        <label htmlFor="title" className="mb-1 block text-sm font-medium text-coffee-950">
+        <label htmlFor="title" className="mb-1 block text-sm font-medium text-ink">
           Item title
         </label>
         <Input id="title" name="title" required defaultValue={listing.title} />
       </div>
 
       <div>
-        <label htmlFor="category" className="mb-1 block text-sm font-medium text-coffee-950">
+        <label htmlFor="category" className="mb-1 block text-sm font-medium text-ink">
           Category
         </label>
-        <Select
-          id="category"
-          name="category"
-          required
-          value={category}
-          onChange={(e) => setCategory(e.target.value as (typeof CATEGORIES)[number]["value"])}
-        >
+        <Select id="category" name="category" required defaultValue={listing.category}>
           {CATEGORIES.map((c) => (
             <option key={c.value} value={c.value}>
               {c.label}
@@ -48,14 +40,10 @@ export default function EditListingForm({ listing }: { listing: ListingDetailDat
         </Select>
       </div>
 
-      <ListingDetailFields
-        key={category}
-        category={category}
-        initialDetails={category === listing.category ? parseListingDetails(listing.details) : {}}
-      />
+      <ListingDetailFields initialDetails={listing.details ?? ""} />
 
       <div>
-        <label htmlFor="price" className="mb-1 block text-sm font-medium text-coffee-950">
+        <label htmlFor="price" className="mb-1 block text-sm font-medium text-ink">
           Price (Br)
         </label>
         <Input
@@ -66,33 +54,33 @@ export default function EditListingForm({ listing }: { listing: ListingDetailDat
           defaultValue={listing.price ?? ""}
           placeholder="e.g. 18500"
         />
-        <label className="mt-2 flex items-center gap-2 text-sm text-coffee-950/70">
+        <label className="mt-2 flex items-center gap-2 text-sm text-ink-muted">
           <input
             type="checkbox"
             name="negotiable"
             defaultChecked={listing.price === null}
-            className="h-4 w-4 rounded border-coffee-950/30 accent-marigold-500"
+            className="h-4 w-4 rounded border-line accent-marigold-500"
           />
           Price is negotiable
         </label>
       </div>
 
       <div>
-        <label htmlFor="location" className="mb-1 block text-sm font-medium text-coffee-950">
+        <label htmlFor="location" className="mb-1 block text-sm font-medium text-ink">
           Location / area
         </label>
         <Input id="location" name="location" required defaultValue={listing.location} />
       </div>
 
       <div>
-        <p className="mb-2 block text-sm font-medium text-coffee-950">
+        <p className="mb-2 block text-sm font-medium text-ink">
           Accepted payment methods
         </p>
         <div className="flex flex-wrap gap-2">
           {PAYMENT_METHODS.map((m) => (
             <label
               key={m.value}
-              className="cursor-pointer rounded-full border border-coffee-950/15 px-4 py-2 text-sm text-coffee-950 has-[:checked]:border-marigold-500 has-[:checked]:bg-marigold-500 has-[:checked]:font-semibold"
+              className="cursor-pointer rounded-full border border-line px-4 py-2 text-sm text-ink has-[:checked]:border-marigold-500 has-[:checked]:bg-marigold-500 has-[:checked]:font-semibold has-[:checked]:text-coffee-950"
             >
               <input
                 type="checkbox"
@@ -108,9 +96,9 @@ export default function EditListingForm({ listing }: { listing: ListingDetailDat
       </div>
 
       <div>
-        <p className="mb-2 block text-sm font-medium text-coffee-950">Delivery available?</p>
+        <p className="mb-2 block text-sm font-medium text-ink">Delivery available?</p>
         <div className="flex gap-2">
-          <label className="flex-1 cursor-pointer rounded-xl border border-coffee-950/15 px-4 py-2.5 text-center text-sm text-coffee-950 has-[:checked]:border-marigold-500 has-[:checked]:bg-marigold-500 has-[:checked]:font-semibold">
+          <label className="flex-1 cursor-pointer rounded-xl border border-line px-4 py-2.5 text-center text-sm text-ink has-[:checked]:border-marigold-500 has-[:checked]:bg-marigold-500 has-[:checked]:font-semibold has-[:checked]:text-coffee-950">
             <input
               type="radio"
               name="deliveryAvailable"
@@ -120,7 +108,7 @@ export default function EditListingForm({ listing }: { listing: ListingDetailDat
             />
             Yes
           </label>
-          <label className="flex-1 cursor-pointer rounded-xl border border-coffee-950/15 px-4 py-2.5 text-center text-sm text-coffee-950 has-[:checked]:border-marigold-500 has-[:checked]:bg-marigold-500 has-[:checked]:font-semibold">
+          <label className="flex-1 cursor-pointer rounded-xl border border-line px-4 py-2.5 text-center text-sm text-ink has-[:checked]:border-marigold-500 has-[:checked]:bg-marigold-500 has-[:checked]:font-semibold has-[:checked]:text-coffee-950">
             <input
               type="radio"
               name="deliveryAvailable"
@@ -134,7 +122,7 @@ export default function EditListingForm({ listing }: { listing: ListingDetailDat
       </div>
 
       <div>
-        <label htmlFor="phone" className="mb-1 block text-sm font-medium text-coffee-950">
+        <label htmlFor="phone" className="mb-1 block text-sm font-medium text-ink">
           Contact phone number
         </label>
         <Input id="phone" name="phone" type="tel" required defaultValue={listing.phone} />
@@ -149,7 +137,7 @@ export default function EditListingForm({ listing }: { listing: ListingDetailDat
       <div className="flex gap-2">
         <Link
           href="/my-listings"
-          className="flex flex-1 items-center justify-center rounded-full border border-coffee-950/15 px-5 py-2.5 text-sm font-semibold text-coffee-950"
+          className="flex flex-1 items-center justify-center rounded-full border border-line px-5 py-2.5 text-sm font-semibold text-ink"
         >
           Cancel
         </Link>

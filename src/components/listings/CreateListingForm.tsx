@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useActionState } from "react";
+import { useActionState } from "react";
 import Input from "@/components/ui/Input";
 import Select from "@/components/ui/Select";
 import Button from "@/components/ui/Button";
@@ -10,7 +10,6 @@ import { CATEGORIES, PAYMENT_METHODS } from "@/lib/constants";
 import { createListing } from "@/lib/actions/create-listing";
 
 export default function CreateListingForm() {
-  const [category, setCategory] = useState("");
   const [state, formAction, isPending] = useActionState(createListing, {
     error: null,
     success: false,
@@ -19,23 +18,17 @@ export default function CreateListingForm() {
   return (
     <form action={formAction} className="space-y-5">
       <div>
-        <label htmlFor="title" className="mb-1 block text-sm font-medium text-coffee-950">
+        <label htmlFor="title" className="mb-1 block text-sm font-medium text-ink">
           Item title
         </label>
         <Input id="title" name="title" required placeholder="e.g. Samsung Galaxy A54 – Like New" />
       </div>
 
       <div>
-        <label htmlFor="category" className="mb-1 block text-sm font-medium text-coffee-950">
+        <label htmlFor="category" className="mb-1 block text-sm font-medium text-ink">
           Category
         </label>
-        <Select
-          id="category"
-          name="category"
-          required
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-        >
+        <Select id="category" name="category" required defaultValue="">
           <option value="" disabled>
             Choose a category
           </option>
@@ -47,39 +40,39 @@ export default function CreateListingForm() {
         </Select>
       </div>
 
-      <ListingDetailFields key={category} category={category} />
+      <ListingDetailFields />
 
       <div>
-        <label htmlFor="price" className="mb-1 block text-sm font-medium text-coffee-950">
+        <label htmlFor="price" className="mb-1 block text-sm font-medium text-ink">
           Price (Br)
         </label>
         <Input id="price" name="price" type="number" min="1" placeholder="e.g. 18500" />
-        <label className="mt-2 flex items-center gap-2 text-sm text-coffee-950/70">
+        <label className="mt-2 flex items-center gap-2 text-sm text-ink-muted">
           <input
             type="checkbox"
             name="negotiable"
-            className="h-4 w-4 rounded border-coffee-950/30 accent-marigold-500"
+            className="h-4 w-4 rounded border-line accent-marigold-500"
           />
           Price is negotiable
         </label>
       </div>
 
       <div>
-        <label htmlFor="location" className="mb-1 block text-sm font-medium text-coffee-950">
+        <label htmlFor="location" className="mb-1 block text-sm font-medium text-ink">
           Location / area
         </label>
         <Input id="location" name="location" required placeholder="e.g. Bole, Addis Ababa" />
       </div>
 
       <div>
-        <p className="mb-2 block text-sm font-medium text-coffee-950">
+        <p className="mb-2 block text-sm font-medium text-ink">
           Accepted payment methods
         </p>
         <div className="flex flex-wrap gap-2">
           {PAYMENT_METHODS.map((m) => (
             <label
               key={m.value}
-              className="cursor-pointer rounded-full border border-coffee-950/15 px-4 py-2 text-sm text-coffee-950 has-[:checked]:border-marigold-500 has-[:checked]:bg-marigold-500 has-[:checked]:font-semibold"
+              className="cursor-pointer rounded-full border border-line px-4 py-2 text-sm text-ink has-[:checked]:border-marigold-500 has-[:checked]:bg-marigold-500 has-[:checked]:font-semibold has-[:checked]:text-coffee-950"
             >
               <input type="checkbox" name="paymentMethods" value={m.value} className="sr-only" />
               {m.label}
@@ -89,13 +82,13 @@ export default function CreateListingForm() {
       </div>
 
       <div>
-        <p className="mb-2 block text-sm font-medium text-coffee-950">Delivery available?</p>
+        <p className="mb-2 block text-sm font-medium text-ink">Delivery available?</p>
         <div className="flex gap-2">
-          <label className="flex-1 cursor-pointer rounded-xl border border-coffee-950/15 px-4 py-2.5 text-center text-sm text-coffee-950 has-[:checked]:border-marigold-500 has-[:checked]:bg-marigold-500 has-[:checked]:font-semibold">
+          <label className="flex-1 cursor-pointer rounded-xl border border-line px-4 py-2.5 text-center text-sm text-ink has-[:checked]:border-marigold-500 has-[:checked]:bg-marigold-500 has-[:checked]:font-semibold has-[:checked]:text-coffee-950">
             <input type="radio" name="deliveryAvailable" value="yes" className="sr-only" />
             Yes
           </label>
-          <label className="flex-1 cursor-pointer rounded-xl border border-coffee-950/15 px-4 py-2.5 text-center text-sm text-coffee-950 has-[:checked]:border-marigold-500 has-[:checked]:bg-marigold-500 has-[:checked]:font-semibold">
+          <label className="flex-1 cursor-pointer rounded-xl border border-line px-4 py-2.5 text-center text-sm text-ink has-[:checked]:border-marigold-500 has-[:checked]:bg-marigold-500 has-[:checked]:font-semibold has-[:checked]:text-coffee-950">
             <input type="radio" name="deliveryAvailable" value="no" defaultChecked className="sr-only" />
             No
           </label>
@@ -103,7 +96,7 @@ export default function CreateListingForm() {
       </div>
 
       <div>
-        <label htmlFor="phone" className="mb-1 block text-sm font-medium text-coffee-950">
+        <label htmlFor="phone" className="mb-1 block text-sm font-medium text-ink">
           Contact phone number
         </label>
         <Input id="phone" name="phone" type="tel" required placeholder="+251 9XX XXX XXX" />

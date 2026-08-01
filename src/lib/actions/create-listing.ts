@@ -30,6 +30,7 @@ export async function createListing(
   const deliveryAvailable = formData.get("deliveryAvailable") === "yes";
   const phone = (formData.get("phone") as string)?.trim();
   const photos = formData.getAll("photos") as string[];
+  const details = (formData.get("details") as string)?.trim() || null;
 
   if (!title) return { error: "Title is required.", success: false };
 
@@ -59,13 +60,6 @@ export async function createListing(
     return { error: "Add at least one photo.", success: false };
   }
 
-  const details: Record<string, string> = {};
-  for (const [key, value] of formData.entries()) {
-    if (key.startsWith("detail:") && typeof value === "string" && value.trim()) {
-      details[key.slice(7)] = value.trim();
-    }
-  }
-
   await prisma.listing.create({
     data: {
       title,
@@ -76,8 +70,8 @@ export async function createListing(
       deliveryAvailable,
       phone,
       photos,
+      details,
       sellerId: session.user.id,
-      ...(Object.keys(details).length > 0 ? { details } : {}),
     },
   });
 
