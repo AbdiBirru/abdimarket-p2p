@@ -33,3 +33,7 @@ export const REPORT_REASONS = [
   { value: "INAPPROPRIATE", label: "Inappropriate content" },
   { value: "OTHER", label: "Other" },
 ] as const;
+
+export function getReportReasonLabel(value: string) {
+  return REPORT_REASONS.find((r) => r.value === value)?.label ?? value;
+}

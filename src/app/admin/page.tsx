@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
@@ -19,10 +20,13 @@ export default async function AdminOverviewPage() {
         <p className="text-2xl font-bold text-coffee-950">{userCount}</p>
         <p className="text-sm text-coffee-950/60">Total users</p>
       </div>
-      <div className="rounded-2xl border border-coffee-950/10 bg-white p-4">
+      <Link
+        href="/admin/reports"
+        className="rounded-2xl border border-coffee-950/10 bg-white p-4 transition-colors hover:bg-coffee-950/5"
+      >
         <p className="text-2xl font-bold text-coffee-950">{pendingReports}</p>
         <p className="text-sm text-coffee-950/60">Pending reports</p>
-      </div>
+      </Link>
     </div>
   );
 }

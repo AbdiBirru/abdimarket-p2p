@@ -33,3 +33,30 @@ export function getAllUsersForAdmin() {
 }
 
 export type AdminUserData = Awaited<ReturnType<typeof getAllUsersForAdmin>>[number];
+
+export function getReportsForAdmin(
+  status: "PENDING" | "RESOLVED" | "DISMISSED" | "ALL" = "PENDING"
+) {
+  return prisma.report.findMany({
+    where: status === "ALL" ? {} : { status },
+    orderBy: { createdAt: "desc" },
+    select: {
+      id: true,
+      reason: true,
+      details: true,
+      status: true,
+      createdAt: true,
+      reporter: { select: { name: true } },
+      listing: {
+        select: {
+          id: true,
+          title: true,
+          photos: true,
+          status: true,
+        },
+      },
+    },
+  });
+}
+
+export type AdminReportData = Awaited<ReturnType<typeof getReportsForAdmin>>[number];

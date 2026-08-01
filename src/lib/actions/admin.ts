@@ -27,5 +27,31 @@ export async function adminSetListingStatus(
   });
 
   revalidatePath("/admin/listings");
+  revalidatePath("/admin/reports");
+  revalidatePath("/admin");
   revalidatePath("/");
+}
+
+export async function resolveReport(reportId: string) {
+  await assertAdmin();
+
+  await prisma.report.update({
+    where: { id: reportId },
+    data: { status: "RESOLVED" },
+  });
+
+  revalidatePath("/admin/reports");
+  revalidatePath("/admin");
+}
+
+export async function dismissReport(reportId: string) {
+  await assertAdmin();
+
+  await prisma.report.update({
+    where: { id: reportId },
+    data: { status: "DISMISSED" },
+  });
+
+  revalidatePath("/admin/reports");
+  revalidatePath("/admin");
 }
