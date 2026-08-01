@@ -15,6 +15,11 @@ export default async function Header() {
         <nav className="hidden items-center gap-4 text-sm font-medium text-cream-50/80 md:flex">
           {session?.user ? (
             <>
+              {session.user.role === "ADMIN" && (
+                <Link href="/admin" className="text-cream-50/80 hover:text-cream-50">
+                  Admin
+                </Link>
+              )}
               <span className="text-cream-50">Hi, {session.user.name}</span>
               <form
                 action={async () => {
