@@ -1,3 +1,4 @@
+import { type Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Truck } from "lucide-react";
 import { auth } from "@/auth";
@@ -12,6 +13,31 @@ import ReviewButton from "@/components/listings/ReviewButton";
 import RatingDisplay from "@/components/listings/RatingDisplay";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const listing = await getListingById(id);
+
+  if (!listing) {
+    return { title: "Listing not found" };
+  }
+
+  const description = `${formatPrice(listing.price)} · ${listing.location} · ${getCategoryLabel(listing.category)}`;
+
+  return {
+    title: listing.title,
+    description,
+    openGraph: {
+      title: listing.title,
+      description,
+      images: listing.photos[0] ? [{ url: listing.photos[0] }] : [],
+    },
+  };
+}
 
 export default async function ListingDetailPage({
   params,
@@ -70,7 +96,7 @@ export default async function ListingDetailPage({
         </div>
 
         
-          <a href={`tel:${listing.phone}`}
+         <a href={`tel:${listing.phone}`}
           className="mt-3 flex items-center justify-center rounded-full bg-marigold-500 px-4 py-2.5 text-sm font-semibold text-coffee-950"
         >
           Call {listing.phone}

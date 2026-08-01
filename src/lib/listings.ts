@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { prisma } from "@/lib/prisma";
 import { CATEGORIES } from "@/lib/constants";
 
@@ -80,7 +81,7 @@ export async function getDistinctLocations() {
   return results.map((r) => r.location);
 }
 
-export async function getListingById(id: string, userId: string | null = null) {
+export const getListingById = cache(async (id: string, userId: string | null = null) => {
   const listing = await prisma.listing.findUnique({
     where: { id },
     select: {
@@ -108,9 +109,18 @@ export async function getListingById(id: string, userId: string | null = null) {
 
   const { savedBy, ...rest } = listing;
   return { ...rest, isSaved: savedBy.length > 0 };
-}
+});
 
 export type ListingDetailData = NonNullable<Awaited<ReturnType<typeof getListingById>>>;
+
+export async function getSellerRating(sellerId: string) {
+  const result = await prisma.review.aggregate({
+    where: { sellerId },
+    _avg: { rating: true },
+    _count: true,
+  });
+  return { average: result._avg.rating, count: result._count };
+}
 
 export function getMyListings(sellerId: string) {
   return prisma.listing.findMany({
@@ -146,13 +156,4 @@ export async function getSavedListings(userId: string) {
   });
 
   return saved.map(({ listing }) => ({ ...listing, isSaved: true }));
-}
-
-export async function getSellerRating(sellerId: string) {
-  const result = await prisma.review.aggregate({
-    where: { sellerId },
-    _avg: { rating: true },
-    _count: true,
-  });
-  return { average: result._avg.rating, count: result._count };
 }

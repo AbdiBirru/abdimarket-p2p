@@ -21,8 +21,19 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AbdiMarket-P2P",
-  description: "Buy and sell locally across Ethiopia — connect directly, no middleman.",
+  metadataBase: new URL(process.env.SITE_URL ?? "http://localhost:3000"),
+  title: {
+    default: "AbdiMarket-P2P — Buy and sell locally across Ethiopia",
+    template: "%s | AbdiMarket-P2P",
+  },
+  description:
+    "A peer-to-peer marketplace connecting buyers and sellers across Ethiopia. Browse listings and contact sellers directly — no middleman, no fees.",
+  openGraph: {
+    type: "website",
+    siteName: "AbdiMarket-P2P",
+    title: "AbdiMarket-P2P — Buy and sell locally across Ethiopia",
+    description: "Browse listings from sellers across Ethiopia and contact them directly.",
+  },
 };
 
 export default function RootLayout({
