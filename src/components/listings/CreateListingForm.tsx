@@ -1,14 +1,16 @@
 "use client";
 
-import { useActionState } from "react";
+import { useState, useActionState } from "react";
 import Input from "@/components/ui/Input";
 import Select from "@/components/ui/Select";
 import Button from "@/components/ui/Button";
 import PhotoUpload from "@/components/listings/PhotoUpload";
+import ListingDetailFields from "@/components/listings/ListingDetailFields";
 import { CATEGORIES, PAYMENT_METHODS } from "@/lib/constants";
 import { createListing } from "@/lib/actions/create-listing";
 
 export default function CreateListingForm() {
+  const [category, setCategory] = useState("");
   const [state, formAction, isPending] = useActionState(createListing, {
     error: null,
     success: false,
@@ -27,7 +29,13 @@ export default function CreateListingForm() {
         <label htmlFor="category" className="mb-1 block text-sm font-medium text-coffee-950">
           Category
         </label>
-        <Select id="category" name="category" required defaultValue="">
+        <Select
+          id="category"
+          name="category"
+          required
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
           <option value="" disabled>
             Choose a category
           </option>
@@ -38,6 +46,8 @@ export default function CreateListingForm() {
           ))}
         </Select>
       </div>
+
+      <ListingDetailFields key={category} category={category} />
 
       <div>
         <label htmlFor="price" className="mb-1 block text-sm font-medium text-coffee-950">
@@ -106,8 +116,7 @@ export default function CreateListingForm() {
       )}
       {state.success && (
         <p className="rounded-lg bg-eucalyptus-600/10 px-3 py-2 text-sm text-eucalyptus-600">
-          Listing saved. Refresh this page to add another test listing — the homepage grid
-          starts showing real listings on Day 15.
+          Listing published.
         </p>
       )}
 

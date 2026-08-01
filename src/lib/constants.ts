@@ -37,3 +37,15 @@ export const REPORT_REASONS = [
 export function getReportReasonLabel(value: string) {
   return REPORT_REASONS.find((r) => r.value === value)?.label ?? value;
 }
+
+export const CATEGORY_DETAIL_FIELDS: Record<string, string[]> = {
+  ELECTRONICS: ["Brand", "Model", "Storage", "RAM", "Screen Size", "Condition"],
+  CLOTHING: ["Brand", "Size", "Material", "Condition"],
+  HOME: ["Brand", "Material", "Dimensions", "Condition"],
+  ACCESSORIES: ["Brand", "Material", "Condition"],
+  VEHICLES: ["Make", "Model", "Year", "Mileage (km)", "Fuel Type", "Transmission"],
+  BOOKS: ["Author", "Language", "Condition"],
+  FOOD: ["Quantity / Weight", "Expiry Date"],
+  SERVICES: ["Experience", "Availability"],
+  OTHER: ["Condition"],
+};

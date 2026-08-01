@@ -4,7 +4,7 @@ import { Truck } from "lucide-react";
 import { auth } from "@/auth";
 import { getListingById, getSellerRating } from "@/lib/listings";
 import { getCategoryLabel, getPaymentMethodLabel } from "@/lib/constants";
-import { formatPrice } from "@/lib/utils";
+import { formatPrice, parseListingDetails } from "@/lib/utils";
 import Card from "@/components/ui/Card";
 import PhotoGallery from "@/components/listings/PhotoGallery";
 import SaveButton from "@/components/listings/SaveButton";
@@ -123,6 +123,19 @@ export default async function ListingDetailPage({
       </Card>
 
       <ReportButton listingId={listing.id} isLoggedIn={!!session?.user} />
+    {Object.keys(parseListingDetails(listing.details)).length > 0 && (
+      <Card className="mt-4 p-4">
+          <p className="text-sm font-medium text-coffee-950">Specifications</p>
+              <dl className="mt-2 grid grid-cols-2 gap-x-4 gap-y-2">
+                    {Object.entries(parseListingDetails(listing.details)).map(([key, value]) => (
+                            <div key={key}>
+                                      <dt className="text-xs text-coffee-950/50">{key}</dt>
+                                                <dd className="text-sm font-medium text-coffee-950">{value}</dd>
+                                                        </div>
+                                                              ))}
+                                                                  </dl>
+                                                                    </Card>
+                                                                    )}
     </div>
   );
 }

@@ -59,6 +59,13 @@ export async function createListing(
     return { error: "Add at least one photo.", success: false };
   }
 
+  const details: Record<string, string> = {};
+  for (const [key, value] of formData.entries()) {
+    if (key.startsWith("detail:") && typeof value === "string" && value.trim()) {
+      details[key.slice(7)] = value.trim();
+    }
+  }
+
   await prisma.listing.create({
     data: {
       title,
@@ -70,6 +77,7 @@ export async function createListing(
       phone,
       photos,
       sellerId: session.user.id,
+      ...(Object.keys(details).length > 0 ? { details } : {}),
     },
   });
 

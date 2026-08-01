@@ -76,6 +76,7 @@ model Listing {
   paymentMethods    PaymentMethod[]
   deliveryAvailable Boolean         @default(false)
   phone             String
+  details           Json?
   status            ListingStatus   @default(ACTIVE)
   createdAt         DateTime        @default(now())
   updatedAt         DateTime        @updatedAt

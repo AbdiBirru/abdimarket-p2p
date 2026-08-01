@@ -1,16 +1,19 @@
 "use client";
 
-import { useActionState } from "react";
+import { useState, useActionState } from "react";
 import Link from "next/link";
 import Input from "@/components/ui/Input";
 import Select from "@/components/ui/Select";
 import Button from "@/components/ui/Button";
 import PhotoUpload from "@/components/listings/PhotoUpload";
+import ListingDetailFields from "@/components/listings/ListingDetailFields";
 import { CATEGORIES, PAYMENT_METHODS } from "@/lib/constants";
+import { parseListingDetails } from "@/lib/utils";
 import { updateListing } from "@/lib/actions/manage-listing";
 import { type ListingDetailData } from "@/lib/listings";
 
 export default function EditListingForm({ listing }: { listing: ListingDetailData }) {
+  const [category, setCategory] = useState(listing.category);
   const updateListingWithId = updateListing.bind(null, listing.id);
   const [state, formAction, isPending] = useActionState(updateListingWithId, {
     error: null,
@@ -30,7 +33,13 @@ export default function EditListingForm({ listing }: { listing: ListingDetailDat
         <label htmlFor="category" className="mb-1 block text-sm font-medium text-coffee-950">
           Category
         </label>
-        <Select id="category" name="category" required defaultValue={listing.category}>
+        <Select
+          id="category"
+          name="category"
+          required
+          value={category}
+          onChange={(e) => setCategory(e.target.value as (typeof CATEGORIES)[number]["value"])}
+        >
           {CATEGORIES.map((c) => (
             <option key={c.value} value={c.value}>
               {c.label}
@@ -38,6 +47,12 @@ export default function EditListingForm({ listing }: { listing: ListingDetailDat
           ))}
         </Select>
       </div>
+
+      <ListingDetailFields
+        key={category}
+        category={category}
+        initialDetails={category === listing.category ? parseListingDetails(listing.details) : {}}
+      />
 
       <div>
         <label htmlFor="price" className="mb-1 block text-sm font-medium text-coffee-950">

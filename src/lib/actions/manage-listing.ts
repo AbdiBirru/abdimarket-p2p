@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
+import { Prisma } from "@/generated/prisma/client";
 import { CATEGORIES, PAYMENT_METHODS } from "@/lib/constants";
 import { type CreateListingState } from "@/lib/actions/create-listing";
 
@@ -105,6 +106,13 @@ export async function updateListing(
     return { error: "Add at least one photo.", success: false };
   }
 
+  const details: Record<string, string> = {};
+  for (const [key, value] of formData.entries()) {
+    if (key.startsWith("detail:") && typeof value === "string" && value.trim()) {
+      details[key.slice(7)] = value.trim();
+    }
+  }
+
   await prisma.listing.update({
     where: { id: listingId },
     data: {
@@ -116,6 +124,7 @@ export async function updateListing(
       deliveryAvailable,
       phone,
       photos,
+      details: Object.keys(details).length > 0 ? details : Prisma.JsonNull,
     },
   });
 

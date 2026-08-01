@@ -94,6 +94,7 @@ export const getListingById = cache(async (id: string, userId: string | null = n
       paymentMethods: true,
       deliveryAvailable: true,
       phone: true,
+      details: true,
       status: true,
       createdAt: true,
       sellerId: true,
