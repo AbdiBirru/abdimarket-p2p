@@ -1,5 +1,23 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --surface: #fbf3e7;
+  --card: #ffffff;
+  --ink: #2b1810;
+  --ink-muted: rgba(43, 24, 16, 0.6);
+  --line: rgba(43, 24, 16, 0.1);
+}
+
+.dark {
+  --surface: #17110d;
+  --card: #241a14;
+  --ink: #fbf3e7;
+  --ink-muted: rgba(251, 243, 231, 0.65);
+  --line: rgba(251, 243, 231, 0.12);
+}
+
 @theme inline {
   --color-coffee-950: #2b1810;
   --color-coffee-700: #4a2e1d;
@@ -10,12 +28,17 @@
   --color-eucalyptus-600: #3f6b4f;
   --color-brick-600: #b5432e;
 
+  --color-surface: var(--surface);
+  --color-card: var(--card);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-line: var(--line);
+
   --font-sans: var(--ff-body), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--ff-mono), ui-monospace, monospace;
   --font-display: var(--ff-display), ui-sans-serif, sans-serif;
 }
 
-/* Signature trim: a woven zigzag band echoing tibeb textile borders */
 .trim-strip {
   height: 10px;
   background-image:

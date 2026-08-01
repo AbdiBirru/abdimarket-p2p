@@ -38,16 +38,16 @@ export default async function HomePage({
   return (
     <div className="mx-auto max-w-6xl px-4 py-6">
       <div className="mb-6">
-        <h1 className="font-display text-2xl font-bold text-coffee-950">
+        <h1 className="font-display text-2xl font-bold text-ink">
           Buy and sell, right where you are
         </h1>
-        <p className="mt-1 text-sm text-coffee-950/60">
+        <p className="mt-1 text-sm text-ink-muted">
           Browse listings from sellers across Ethiopia. Contact them directly — no middleman.
         </p>
       </div>
 
       <div className="mb-3">
-        <Suspense fallback={<div className="h-11 rounded-full border border-coffee-950/15 bg-white" />}>
+        <Suspense fallback={<div className="h-11 rounded-full border border-line bg-card" />}>
           <SearchBar />
         </Suspense>
       </div>
@@ -57,10 +57,10 @@ export default async function HomePage({
       </div>
 
       <div className="mb-5 flex gap-2">
-        <Suspense fallback={<div className="h-11 w-40 rounded-xl border border-coffee-950/15 bg-white" />}>
+        <Suspense fallback={<div className="h-11 w-40 rounded-xl border border-line bg-card" />}>
           <LocationFilter locations={locations} />
         </Suspense>
-        <Suspense fallback={<div className="h-11 w-40 rounded-xl border border-coffee-950/15 bg-white" />}>
+        <Suspense fallback={<div className="h-11 w-40 rounded-xl border border-line bg-card" />}>
           <SortSelect />
         </Suspense>
       </div>

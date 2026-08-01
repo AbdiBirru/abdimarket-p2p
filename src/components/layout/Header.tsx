@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { Search } from "lucide-react";
 import { auth, signOut } from "@/auth";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 
 export default async function Header() {
   const session = await auth();
@@ -33,6 +33,7 @@ export default async function Header() {
           ) : (
             <Link href="/login">Log In</Link>
           )}
+          <ThemeToggle />
           <Link
             href="/sell"
             className="rounded-full bg-marigold-500 px-4 py-2 font-semibold text-coffee-950"
@@ -41,9 +42,9 @@ export default async function Header() {
           </Link>
         </nav>
 
-        <Link href="/" className="text-cream-50 md:hidden" aria-label="Search listings">
-          <Search className="h-6 w-6" />
-        </Link>
+        <div className="md:hidden">
+          <ThemeToggle />
+        </div>
       </div>
       <div className="trim-strip" />
     </header>

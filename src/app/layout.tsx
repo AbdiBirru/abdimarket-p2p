@@ -36,14 +36,33 @@ export const metadata: Metadata = {
   },
 };
 
+const themeScript = `
+(function () {
+  try {
+    var stored = localStorage.getItem("theme");
+    var systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    if (stored === "dark" || (!stored && systemDark)) {
+      document.documentElement.classList.add("dark");
+    }
+  } catch (e) {}
+})();
+`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
-      <body className="flex min-h-screen flex-col bg-cream-50 font-sans text-coffee-950 antialiased">
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${display.variable} ${body.variable} ${mono.variable}`}
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
+      <body className="flex min-h-screen flex-col bg-surface font-sans text-ink antialiased">
         <Header />
         <main className="flex-1 pb-16 md:pb-0">{children}</main>
         <Footer />

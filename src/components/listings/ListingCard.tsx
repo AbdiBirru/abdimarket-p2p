@@ -24,10 +24,10 @@ export default function ListingCard({
       </div>
       <Link
         href={`/listings/${listing.id}`}
-        className="block rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-marigold-500 focus-visible:ring-offset-2 focus-visible:ring-offset-cream-50"
+        className="block rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-marigold-500 focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
       >
         <Card className="h-full transition-transform hover:-translate-y-0.5">
-          <div className="relative aspect-square w-full bg-coffee-950/5">
+          <div className="relative aspect-square w-full bg-line">
             <Image
               src={listing.photos[0]}
               alt={listing.title}
@@ -40,10 +40,10 @@ export default function ListingCard({
             <p className="truncate text-xs font-medium uppercase tracking-wide text-marigold-600">
               {getCategoryLabel(listing.category)}
             </p>
-            <h3 className="mt-1 line-clamp-2 text-sm font-semibold text-coffee-950">
+            <h3 className="mt-1 line-clamp-2 text-sm font-semibold text-ink">
               {listing.title}
             </h3>
-            <p className="mt-1 font-mono text-sm font-bold text-coffee-950">
+            <p className="mt-1 font-mono text-sm font-bold text-ink">
               {formatPrice(listing.price)}
             </p>
           </div>

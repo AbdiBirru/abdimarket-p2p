@@ -7,24 +7,24 @@ export default async function BottomNav() {
   const accountHref = session?.user ? "/account" : "/login";
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-40 flex items-center justify-around border-t border-coffee-950/10 bg-white py-2 md:hidden">
-      <Link href="/" className="flex flex-col items-center gap-1 px-3 py-1 text-coffee-950">
+    <nav className="fixed inset-x-0 bottom-0 z-40 flex items-center justify-around border-t border-line bg-card py-2 md:hidden">
+      <Link href="/" className="flex flex-col items-center gap-1 px-3 py-1 text-ink">
         <Home className="h-6 w-6" />
         <span className="text-xs">Home</span>
       </Link>
-      <button className="flex flex-col items-center gap-1 px-3 py-1 text-coffee-950/60">
+      <Link href="/" className="flex flex-col items-center gap-1 px-3 py-1 text-ink-muted">
         <Search className="h-6 w-6" />
         <span className="text-xs">Search</span>
-      </button>
+      </Link>
       <Link href="/sell" className="flex flex-col items-center gap-1 px-3 py-1 text-marigold-600">
         <PlusCircle className="h-7 w-7" />
         <span className="text-xs font-medium">Sell</span>
       </Link>
-      <Link href="/saved" className="flex flex-col items-center gap-1 px-3 py-1 text-coffee-950/60">
+      <Link href="/saved" className="flex flex-col items-center gap-1 px-3 py-1 text-ink-muted">
         <Heart className="h-6 w-6" />
         <span className="text-xs">Saved</span>
       </Link>
-      <Link href={accountHref} className="flex flex-col items-center gap-1 px-3 py-1 text-coffee-950/60">
+      <Link href={accountHref} className="flex flex-col items-center gap-1 px-3 py-1 text-ink-muted">
         <User className="h-6 w-6" />
         <span className="text-xs">{session?.user ? "Account" : "Log In"}</span>
       </Link>

@@ -11,7 +11,7 @@ export default function ListingGrid({
   emptyMessage?: string;
 }) {
   if (listings.length === 0) {
-    return <p className="py-12 text-center text-sm text-coffee-950/60">{emptyMessage}</p>;
+    return <p className="py-12 text-center text-sm text-ink-muted">{emptyMessage}</p>;
   }
 
   return (

@@ -28,7 +28,7 @@ export default function CategoryFilter({
           "shrink-0 rounded-full border px-4 py-1.5 text-sm font-medium",
           !activeCategory
             ? "border-marigold-500 bg-marigold-500 text-coffee-950"
-            : "border-coffee-950/15 text-coffee-950/70"
+            : "border-line text-ink-muted"
         )}
       >
         All
@@ -41,7 +41,7 @@ export default function CategoryFilter({
             "shrink-0 rounded-full border px-4 py-1.5 text-sm font-medium",
             activeCategory === c.value
               ? "border-marigold-500 bg-marigold-500 text-coffee-950"
-              : "border-coffee-950/15 text-coffee-950/70"
+              : "border-line text-ink-muted"
           )}
         >
           {c.label}
