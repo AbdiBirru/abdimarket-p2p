@@ -30,7 +30,7 @@ const CATEGORY_SWATCHES = [
 export default async function Image() {
   const headlineText = "AbdiMarket-P2P Buy & Sell Directly";
   const bodyText =
-    "A modern P2P marketplace for everyday buying and selling. Electronics Vehicles Clothing Br 18,500 285,000 4,200";
+    "A modern P2P marketplace for everyday buying and selling. Start Now Electronics Vehicles Clothing Br 18,500 285,000 4,200";
 
   const [displayBold, displayMedium] = await Promise.all([
     loadGoogleFont("Bricolage Grotesque", 800, headlineText),
@@ -115,6 +115,34 @@ export default async function Image() {
               }}
             >
               A modern P2P marketplace for everyday buying and selling.
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                alignSelf: "flex-start",
+                alignItems: "center",
+                gap: 14,
+                marginTop: 36,
+                backgroundColor: "#e8a33d",
+                borderRadius: 9999,
+                padding: "20px 40px",
+                boxShadow: "0 16px 32px rgba(0,0,0,0.3)",
+              }}
+            >
+              <span style={{ fontFamily: "BricolageBold", fontSize: 30, color: "#2b1810" }}>
+                Start Now
+              </span>
+              <div
+                style={{
+                  display: "flex",
+                  width: 0,
+                  height: 0,
+                  borderTop: "9px solid transparent",
+                  borderBottom: "9px solid transparent",
+                  borderLeft: "14px solid #2b1810",
+                }}
+              />
             </div>
           </div>
 
