@@ -40,7 +40,7 @@ export default function ReportButton({
       <button
         type="button"
         onClick={openDialog}
-        className="mx-auto mt-4 flex items-center gap-1.5 text-xs font-medium text-ink/40 hover:text-brick-600"
+        className="mx-auto mt-4 flex items-center gap-1.5 text-xs font-medium text-ink-muted hover:text-brick-600"
       >
         <Flag className="h-3.5 w-3.5" />
         Report this listing
@@ -48,7 +48,7 @@ export default function ReportButton({
 
       <dialog
         ref={dialogRef}
-        className="w-[90vw] max-w-sm rounded-2xl border border-line p-5 backdrop:bg-ink/40"
+        className="fixed top-1/2 left-1/2 w-[90vw] max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-line bg-card p-5 text-ink backdrop:bg-black/50"
       >
         <div className="flex items-center justify-between">
           <h2 className="font-display text-lg font-bold text-ink">Report listing</h2>
@@ -56,7 +56,7 @@ export default function ReportButton({
             type="button"
             onClick={() => dialogRef.current?.close()}
             aria-label="Close"
-            className="text-ink/40"
+            className="text-ink-muted"
           >
             <X className="h-5 w-5" />
           </button>
@@ -86,7 +86,7 @@ export default function ReportButton({
               name="details"
               rows={3}
               placeholder="Anything else we should know? (optional)"
-              className="w-full rounded-xl border border-line p-3 text-sm text-ink outline-none focus:border-marigold-500 focus:ring-2 focus:ring-marigold-500/30"
+              className="w-full rounded-xl border border-line bg-card p-3 text-sm text-ink outline-none focus:border-marigold-500 focus:ring-2 focus:ring-marigold-500/30"
             />
             {state.error && <p className="text-sm text-brick-600">{state.error}</p>}
             <button

@@ -48,7 +48,7 @@ export default function ReviewButton({
 
       <dialog
         ref={dialogRef}
-        className="w-[90vw] max-w-sm rounded-2xl border border-line p-5 backdrop:bg-ink/40"
+        className="fixed top-1/2 left-1/2 w-[90vw] max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-line bg-card p-5 text-ink backdrop:bg-black/50"
       >
         <h2 className="font-display text-lg font-bold text-ink">Rate this seller</h2>
 
@@ -64,7 +64,7 @@ export default function ReviewButton({
                   <Star
                     className={cn(
                       "h-8 w-8",
-                      n <= rating ? "fill-marigold-500 text-marigold-500" : "text-ink/20"
+                      n <= rating ? "fill-marigold-500 text-marigold-500" : "text-ink-muted"
                     )}
                   />
                 </button>
@@ -76,7 +76,7 @@ export default function ReviewButton({
               name="comment"
               rows={3}
               placeholder="Optional comment"
-              className="w-full rounded-xl border border-line p-3 text-sm text-ink outline-none focus:border-marigold-500 focus:ring-2 focus:ring-marigold-500/30"
+              className="w-full rounded-xl border border-line bg-card p-3 text-sm text-ink outline-none focus:border-marigold-500 focus:ring-2 focus:ring-marigold-500/30"
             />
 
             {state.error && <p className="text-sm text-brick-600">{state.error}</p>}
@@ -92,7 +92,7 @@ export default function ReviewButton({
               <button
                 type="submit"
                 disabled={isPending}
-                className="flex-1 rounded-full bg-marigold-500 px-4 py-2.5 text-sm font-semibold text-ink disabled:opacity-60"
+                className="flex-1 rounded-full bg-marigold-500 px-4 py-2.5 text-sm font-semibold text-coffee-950 disabled:opacity-60"
               >
                 {isPending ? "Saving..." : "Submit"}
               </button>
