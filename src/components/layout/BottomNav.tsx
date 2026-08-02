@@ -7,7 +7,7 @@ export default async function BottomNav() {
   const accountHref = session?.user ? "/account" : "/login";
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-40 flex items-center justify-around border-t border-line bg-card py-2 md:hidden">
+    <nav className="fixed inset-x-0 bottom-0 z-40 flex items-center justify-around border-t border-line bg-card pb-[calc(0.5rem+env(safe-area-inset-bottom))] pt-2 md:hidden">
       <Link href="/" className="flex flex-col items-center gap-1 px-3 py-1 text-ink">
         <Home className="h-6 w-6" />
         <span className="text-xs">Home</span>

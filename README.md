@@ -1,36 +1,94 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AbdiMarket-P2P
 
-## Getting Started
+A peer-to-peer classifieds marketplace built for Ethiopia — buyers and sellers connect and transact directly. The platform is strictly a bridge: it never handles payments or deliveries.
 
-First, run the development server:
+## Tech stack
 
-```bash
+- **Framework:** Next.js 16 (App Router, Turbopack)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS v4
+- **Database:** Neon Postgres (serverless)
+- **ORM:** Prisma 7, with the Neon driver adapter
+- **Auth:** Auth.js v5 (Credentials provider, JWT sessions)
+- **File storage:** Vercel Blob (direct client-side uploads)
+- **Hosting:** Vercel (auto-deploy from GitHub)
+
+## Features
+
+- Email/password accounts with hashed passwords
+- Create, edit, mark-as-sold, and delete listings
+- Multi-photo upload (up to 6 per listing)
+- Free-text item details, category, price (or "Negotiable"), location, accepted payment methods, delivery availability, contact phone
+- Keyword search, category and location filters, sort by newest/price, pagination
+- Saved listings (wishlist)
+- Seller ratings and reviews
+- Report listings, with an admin moderation queue
+- Role-protected admin panel: manage listings, users, and reports
+- Light/dark mode
+- SEO: per-listing Open Graph tags, sitemap, robots.txt
+
+## Intentionally out of scope
+
+- Payment processing of any kind
+- Delivery tracking
+- Shopping cart or order management
+
+## Getting started
+
+### Prerequisites
+
+- Node.js 20.9+
+- A free [Neon](https://neon.tech) Postgres database
+- A free [Vercel](https://vercel.com) account with a Blob store
+
+### Setup
+
+\`\`\`bash
+npm install
+\`\`\`
+
+Copy \`.env.example\` to \`.env\` and fill in real values.
+
+\`\`\`bash
+npx prisma migrate deploy
+npx prisma generate
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+\`\`\`
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Environment variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Variable | Description |
+| --- | --- |
+| \`DATABASE_URL\` | Pooled Neon connection string — used by the running app |
+| \`DATABASE_URL_UNPOOLED\` | Direct Neon connection string — used only by Prisma CLI for migrations |
+| \`AUTH_SECRET\` | Signing secret for Auth.js sessions — generate with \`npx auth secret\` |
+| \`BLOB_READ_WRITE_TOKEN\` | Vercel Blob store access token |
+| \`SITE_URL\` | Production URL, used for metadata and the sitemap |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project structure
 
-## Learn More
+\`\`\`
+src/
+  app/            Routes (App Router)
+  components/
+    ui/           Shared primitives (Button, Input, Select, Card, ThemeToggle)
+    layout/       Header, Footer, BottomNav
+    listings/     Listing-specific components
+    admin/        Admin panel components
+  lib/
+    actions/      Server Actions
+    listings.ts   Listing queries
+    admin.ts      Admin queries
+    prisma.ts     Prisma Client singleton
+    constants.ts  Shared category/payment/report option lists
+  auth.ts         Auth.js configuration
+  proxy.ts        Route protection for /admin (Next.js 16's middleware replacement)
+\`\`\`
 
-To learn more about Next.js, take a look at the following resources:
+## Deployment
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Connected to Vercel via GitHub — every push to \`main\` deploys automatically. Migrations run manually against the shared Neon database (\`npx prisma migrate deploy\`) rather than as part of the Vercel build, since local development and production use the same database.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Admin access
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+There's no self-service way to become an admin, by design. Promote a user directly in the database (Prisma Studio, or a direct SQL update) by setting their \`role\` to \`ADMIN\`.
