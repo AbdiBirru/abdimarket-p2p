@@ -48,7 +48,7 @@ export default function SaveButton({
       disabled={isPending}
       aria-label={saved ? "Remove from saved listings" : "Save listing"}
       className={cn(
-        "flex shrink-0 items-center justify-center rounded-full bg-white/90 text-coffee-950 shadow-sm backdrop-blur transition-colors disabled:opacity-60",
+        "flex shrink-0 items-center justify-center rounded-full bg-card/90 text-ink shadow-sm backdrop-blur transition-colors disabled:opacity-60",
         dimensions
       )}
     >

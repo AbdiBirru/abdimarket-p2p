@@ -35,31 +35,31 @@ export default function PaginationControls({
       {hasPrev ? (
         <Link
           href={buildHref(currentPage - 1)}
-          className={cn(baseClass, "border-coffee-950/15 text-coffee-950")}
+          className={cn(baseClass, "border-line text-ink")}
           aria-label="Previous page"
         >
           <ChevronLeft className="h-4 w-4" />
         </Link>
       ) : (
-        <span className={cn(baseClass, "border-coffee-950/10 text-coffee-950/30")} aria-hidden>
+        <span className={cn(baseClass, "border-line text-ink/30")} aria-hidden>
           <ChevronLeft className="h-4 w-4" />
         </span>
       )}
 
-      <span className="text-sm text-coffee-950/60">
+      <span className="text-sm text-ink/60">
         Page {currentPage} of {totalPages}
       </span>
 
       {hasNext ? (
         <Link
           href={buildHref(currentPage + 1)}
-          className={cn(baseClass, "border-coffee-950/15 text-coffee-950")}
+          className={cn(baseClass, "border-line text-ink")}
           aria-label="Next page"
         >
           <ChevronRight className="h-4 w-4" />
         </Link>
       ) : (
-        <span className={cn(baseClass, "border-coffee-950/10 text-coffee-950/30")} aria-hidden>
+        <span className={cn(baseClass, "border-line text-ink/30")} aria-hidden>
           <ChevronRight className="h-4 w-4" />
         </span>
       )}

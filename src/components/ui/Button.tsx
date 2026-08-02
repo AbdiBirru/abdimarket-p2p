@@ -11,7 +11,7 @@ export function buttonVariants(variant: ButtonVariant = "primary") {
     variant === "secondary" &&
       "bg-coffee-950 text-cream-50 hover:bg-coffee-700 dark:bg-coffee-700 dark:hover:bg-coffee-600",
     variant === "ghost" &&
-      "border border-line bg-transparent text-ink hover:bg-black/5 dark:hover:bg-white/5"
+      "border border-line bg-transparent text-ink hover:bg-black/5 dark:hover:bg-card/5"
   );
 }
 

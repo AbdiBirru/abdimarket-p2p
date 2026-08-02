@@ -36,7 +36,7 @@ export default async function Header() {
           <ThemeToggle />
           <Link
             href="/sell"
-            className="rounded-full bg-marigold-500 px-4 py-2 font-semibold text-coffee-950"
+            className="rounded-full bg-marigold-500 px-4 py-2 font-semibold text-ink"
           >
             Sell an item
           </Link>

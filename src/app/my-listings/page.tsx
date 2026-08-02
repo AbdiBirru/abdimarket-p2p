@@ -17,14 +17,14 @@ export default async function MyListingsPage() {
   return (
     <div className="mx-auto max-w-2xl px-4 py-8">
       <div className="mb-6 flex items-center justify-between">
-        <h1 className="font-display text-2xl font-bold text-coffee-950">My Listings</h1>
+        <h1 className="font-display text-2xl font-bold text-ink">My Listings</h1>
         <Link href="/sell" className="text-sm font-semibold text-marigold-600">
           + New listing
         </Link>
       </div>
 
       {listings.length === 0 ? (
-        <p className="py-12 text-center text-sm text-coffee-950/60">
+        <p className="py-12 text-center text-sm text-ink/60">
           You haven&apos;t listed anything yet.
         </p>
       ) : (

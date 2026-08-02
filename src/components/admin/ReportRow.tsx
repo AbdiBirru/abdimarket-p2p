@@ -29,9 +29,9 @@ export default function ReportRow({ report }: { report: AdminReportData }) {
   const isHandled = report.status !== "PENDING";
 
   return (
-    <div className="rounded-xl border border-coffee-950/10 bg-white p-3">
+    <div className="rounded-xl border border-line bg-card p-3">
       <div className="flex gap-3">
-        <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-lg bg-coffee-950/5">
+        <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-lg bg-ink/5">
           <Image
             src={report.listing.photos[0]}
             alt={report.listing.title}
@@ -44,15 +44,15 @@ export default function ReportRow({ report }: { report: AdminReportData }) {
         <div className="min-w-0 flex-1">
           <Link
             href={`/listings/${report.listing.id}`}
-            className="truncate text-sm font-semibold text-coffee-950 hover:underline"
+            className="truncate text-sm font-semibold text-ink hover:underline"
           >
             {report.listing.title}
           </Link>
-          <p className="mt-0.5 text-xs text-coffee-950/60">
+          <p className="mt-0.5 text-xs text-ink/60">
             Reported by {report.reporter.name} · {getReportReasonLabel(report.reason)}
           </p>
           {report.details && (
-            <p className="mt-1 text-xs italic text-coffee-950/50">&ldquo;{report.details}&rdquo;</p>
+            <p className="mt-1 text-xs italic text-ink/50">&ldquo;{report.details}&rdquo;</p>
           )}
         </div>
 
@@ -70,7 +70,7 @@ export default function ReportRow({ report }: { report: AdminReportData }) {
       {error && <p className="mt-2 text-xs text-brick-600">{error}</p>}
 
       {!isHandled && (
-        <div className="mt-3 flex gap-2 border-t border-coffee-950/10 pt-3">
+        <div className="mt-3 flex gap-2 border-t border-line pt-3">
           {report.listing.status === "ACTIVE" && (
             <button
               onClick={() => run(() => adminSetListingStatus(report.listing.id, "REMOVED"))}
@@ -84,7 +84,7 @@ export default function ReportRow({ report }: { report: AdminReportData }) {
           <button
             onClick={() => run(() => resolveReport(report.id))}
             disabled={isPending}
-            className="flex flex-1 items-center justify-center gap-1.5 rounded-lg py-2 text-xs font-medium text-coffee-950 hover:bg-coffee-950/5 disabled:opacity-50"
+            className="flex flex-1 items-center justify-center gap-1.5 rounded-lg py-2 text-xs font-medium text-ink hover:bg-ink/5 disabled:opacity-50"
           >
             <CheckCircle2 className="h-3.5 w-3.5" />
             Resolve
@@ -92,7 +92,7 @@ export default function ReportRow({ report }: { report: AdminReportData }) {
           <button
             onClick={() => run(() => dismissReport(report.id))}
             disabled={isPending}
-            className="flex flex-1 items-center justify-center gap-1.5 rounded-lg py-2 text-xs font-medium text-coffee-950/60 hover:bg-coffee-950/5 disabled:opacity-50"
+            className="flex flex-1 items-center justify-center gap-1.5 rounded-lg py-2 text-xs font-medium text-ink/60 hover:bg-ink/5 disabled:opacity-50"
           >
             <XCircle className="h-3.5 w-3.5" />
             Dismiss

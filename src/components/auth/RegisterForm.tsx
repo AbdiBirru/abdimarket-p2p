@@ -14,21 +14,21 @@ export default function RegisterForm() {
   return (
     <form action={formAction} className="space-y-4">
       <div>
-        <label htmlFor="name" className="mb-1 block text-sm font-medium text-coffee-950">
+        <label htmlFor="name" className="mb-1 block text-sm font-medium text-ink">
           Full name
         </label>
         <Input id="name" name="name" type="text" required placeholder="Selam Abebe" />
       </div>
 
       <div>
-        <label htmlFor="email" className="mb-1 block text-sm font-medium text-coffee-950">
+        <label htmlFor="email" className="mb-1 block text-sm font-medium text-ink">
           Email
         </label>
         <Input id="email" name="email" type="email" required placeholder="you@example.com" />
       </div>
 
       <div>
-        <label htmlFor="password" className="mb-1 block text-sm font-medium text-coffee-950">
+        <label htmlFor="password" className="mb-1 block text-sm font-medium text-ink">
           Password
         </label>
         <Input id="password" name="password" type="password" required minLength={8} placeholder="At least 8 characters" />
@@ -44,7 +44,7 @@ export default function RegisterForm() {
         {isPending ? "Creating account..." : "Create account"}
       </Button>
 
-      <p className="text-center text-sm text-coffee-950/60">
+      <p className="text-center text-sm text-ink/60">
         Already have an account?{" "}
         <Link href="/login" className="font-semibold text-marigold-600">
           Log in

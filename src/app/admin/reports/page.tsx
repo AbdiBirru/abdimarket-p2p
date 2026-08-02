@@ -23,7 +23,7 @@ export default async function AdminReportsPage({
 
   return (
     <div>
-      <h2 className="font-display text-lg font-bold text-coffee-950">
+      <h2 className="font-display text-lg font-bold text-ink">
         Reported Listings ({reports.length})
       </h2>
 
@@ -35,8 +35,8 @@ export default async function AdminReportsPage({
             className={cn(
               "rounded-full border px-3 py-1 text-xs font-medium",
               activeStatus === tab.value
-                ? "border-marigold-500 bg-marigold-500 text-coffee-950"
-                : "border-coffee-950/15 text-coffee-950/60"
+                ? "border-marigold-500 bg-marigold-500 text-ink"
+                : "border-line text-ink/60"
             )}
           >
             {tab.label}
@@ -46,7 +46,7 @@ export default async function AdminReportsPage({
 
       <div className="mt-4 space-y-2">
         {reports.length === 0 ? (
-          <p className="py-8 text-center text-sm text-coffee-950/50">Nothing here.</p>
+          <p className="py-8 text-center text-sm text-ink/50">Nothing here.</p>
         ) : (
           reports.map((report) => <ReportRow key={report.id} report={report} />)
         )}

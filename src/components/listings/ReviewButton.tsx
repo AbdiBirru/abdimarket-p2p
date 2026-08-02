@@ -48,9 +48,9 @@ export default function ReviewButton({
 
       <dialog
         ref={dialogRef}
-        className="w-[90vw] max-w-sm rounded-2xl border border-coffee-950/10 p-5 backdrop:bg-coffee-950/40"
+        className="w-[90vw] max-w-sm rounded-2xl border border-line p-5 backdrop:bg-ink/40"
       >
-        <h2 className="font-display text-lg font-bold text-coffee-950">Rate this seller</h2>
+        <h2 className="font-display text-lg font-bold text-ink">Rate this seller</h2>
 
         {state.success ? (
           <p className="mt-4 rounded-lg bg-eucalyptus-600/10 px-3 py-2 text-sm text-eucalyptus-600">
@@ -64,7 +64,7 @@ export default function ReviewButton({
                   <Star
                     className={cn(
                       "h-8 w-8",
-                      n <= rating ? "fill-marigold-500 text-marigold-500" : "text-coffee-950/20"
+                      n <= rating ? "fill-marigold-500 text-marigold-500" : "text-ink/20"
                     )}
                   />
                 </button>
@@ -76,7 +76,7 @@ export default function ReviewButton({
               name="comment"
               rows={3}
               placeholder="Optional comment"
-              className="w-full rounded-xl border border-coffee-950/15 p-3 text-sm text-coffee-950 outline-none focus:border-marigold-500 focus:ring-2 focus:ring-marigold-500/30"
+              className="w-full rounded-xl border border-line p-3 text-sm text-ink outline-none focus:border-marigold-500 focus:ring-2 focus:ring-marigold-500/30"
             />
 
             {state.error && <p className="text-sm text-brick-600">{state.error}</p>}
@@ -85,14 +85,14 @@ export default function ReviewButton({
               <button
                 type="button"
                 onClick={() => dialogRef.current?.close()}
-                className="flex-1 rounded-full border border-coffee-950/15 px-4 py-2.5 text-sm font-semibold text-coffee-950"
+                className="flex-1 rounded-full border border-line px-4 py-2.5 text-sm font-semibold text-ink"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={isPending}
-                className="flex-1 rounded-full bg-marigold-500 px-4 py-2.5 text-sm font-semibold text-coffee-950 disabled:opacity-60"
+                className="flex-1 rounded-full bg-marigold-500 px-4 py-2.5 text-sm font-semibold text-ink disabled:opacity-60"
               >
                 {isPending ? "Saving..." : "Submit"}
               </button>

@@ -11,8 +11,8 @@ export default async function SellPage() {
 
   return (
     <div className="mx-auto max-w-lg px-4 py-8">
-      <h1 className="font-display text-2xl font-bold text-coffee-950">Sell an item</h1>
-      <p className="mt-1 text-sm text-coffee-950/60">
+      <h1 className="font-display text-2xl font-bold text-ink">Sell an item</h1>
+      <p className="mt-1 text-sm text-ink/60">
         Fill in the details below. Buyers will see this exactly as you enter it.
       </p>
       <Card className="mt-6 p-5">

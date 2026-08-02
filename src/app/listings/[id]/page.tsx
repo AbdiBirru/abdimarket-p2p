@@ -63,10 +63,10 @@ export default async function ListingDetailPage({
           <p className="text-xs font-medium uppercase tracking-wide text-marigold-600">
             {getCategoryLabel(listing.category)}
           </p>
-          <h1 className="mt-1 font-display text-xl font-bold text-coffee-950">
+          <h1 className="mt-1 font-display text-xl font-bold text-ink">
             {listing.title}
           </h1>
-          <p className="mt-1 font-mono text-lg font-bold text-coffee-950">
+          <p className="mt-1 font-mono text-lg font-bold text-ink">
             {formatPrice(listing.price)}
           </p>
         </div>
@@ -82,8 +82,8 @@ export default async function ListingDetailPage({
       <Card className="mt-5 p-4">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <p className="text-sm font-semibold text-coffee-950">{listing.seller.name}</p>
-            <p className="text-sm text-coffee-950/60">{listing.location}</p>
+            <p className="text-sm font-semibold text-ink">{listing.seller.name}</p>
+            <p className="text-sm text-ink/60">{listing.location}</p>
             <div className="mt-1">
               <RatingDisplay average={rating.average} count={rating.count} />
             </div>
@@ -97,26 +97,26 @@ export default async function ListingDetailPage({
 
         
        <a   href={`tel:${listing.phone}`}
-          className="mt-3 flex items-center justify-center rounded-full bg-marigold-500 px-4 py-2.5 text-sm font-semibold text-coffee-950"
+          className="mt-3 flex items-center justify-center rounded-full bg-marigold-500 px-4 py-2.5 text-sm font-semibold text-ink"
         >
           Call {listing.phone}
         </a>
       </Card>
 
       <Card className="mt-4 p-4">
-        <p className="text-sm font-medium text-coffee-950">Payment methods</p>
+        <p className="text-sm font-medium text-ink">Payment methods</p>
         <div className="mt-2 flex flex-wrap gap-2">
           {listing.paymentMethods.map((method) => (
             <span
               key={method}
-              className="rounded-full bg-coffee-950/5 px-3 py-1 text-xs font-medium text-coffee-950"
+              className="rounded-full bg-ink/5 px-3 py-1 text-xs font-medium text-ink"
             >
               {getPaymentMethodLabel(method)}
             </span>
           ))}
         </div>
 
-        <div className="mt-3 flex items-center gap-2 text-sm text-coffee-950">
+        <div className="mt-3 flex items-center gap-2 text-sm text-ink">
           <Truck className="h-4 w-4 text-eucalyptus-600" />
           {listing.deliveryAvailable ? "Delivery available" : "Pickup only"}
         </div>
@@ -126,8 +126,8 @@ export default async function ListingDetailPage({
 
       {listing.details && (
         <Card className="mt-4 p-4">
-          <p className="text-sm font-medium text-coffee-950">Details</p>
-          <p className="mt-2 whitespace-pre-wrap text-sm text-coffee-950/80">
+          <p className="text-sm font-medium text-ink">Details</p>
+          <p className="mt-2 whitespace-pre-wrap text-sm text-ink/80">
             {listing.details}
           </p>
         </Card>

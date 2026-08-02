@@ -12,7 +12,7 @@ import { type AdminListingData } from "@/lib/admin";
 
 const STATUS_STYLES: Record<string, string> = {
   ACTIVE: "bg-eucalyptus-600/10 text-eucalyptus-600",
-  SOLD: "bg-coffee-950/10 text-coffee-950/60",
+  SOLD: "bg-ink/10 text-ink/60",
   REMOVED: "bg-brick-600/10 text-brick-600",
 };
 
@@ -41,19 +41,19 @@ export default function AdminListingRow({ listing }: { listing: AdminListingData
   }
 
   return (
-    <div className="flex items-center gap-3 rounded-xl border border-coffee-950/10 bg-white p-3">
-      <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-lg bg-coffee-950/5">
+    <div className="flex items-center gap-3 rounded-xl border border-line bg-card p-3">
+      <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-lg bg-ink/5">
         <Image src={listing.photos[0]} alt={listing.title} fill sizes="48px" className="object-cover" />
       </div>
 
       <div className="min-w-0 flex-1">
         <Link
           href={`/listings/${listing.id}`}
-          className="truncate text-sm font-semibold text-coffee-950 hover:underline"
+          className="truncate text-sm font-semibold text-ink hover:underline"
         >
           {listing.title}
         </Link>
-        <p className="text-xs text-coffee-950/50">
+        <p className="text-xs text-ink/50">
           {getCategoryLabel(listing.category)} · {formatPrice(listing.price)} · {listing.seller.name}
         </p>
         {error && <p className="mt-1 text-xs text-brick-600">{error}</p>}
@@ -69,7 +69,7 @@ export default function AdminListingRow({ listing }: { listing: AdminListingData
         <button
           onClick={handleToggle}
           disabled={isPending}
-          className="flex shrink-0 items-center gap-1 rounded-lg px-2 py-1.5 text-xs font-medium text-coffee-950 hover:bg-coffee-950/5 disabled:opacity-50"
+          className="flex shrink-0 items-center gap-1 rounded-lg px-2 py-1.5 text-xs font-medium text-ink hover:bg-ink/5 disabled:opacity-50"
         >
           {listing.status === "REMOVED" ? (
             <>

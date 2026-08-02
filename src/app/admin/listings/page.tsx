@@ -8,7 +8,7 @@ export default async function AdminListingsPage() {
 
   return (
     <div>
-      <h2 className="font-display text-lg font-bold text-coffee-950">
+      <h2 className="font-display text-lg font-bold text-ink">
         All Listings ({listings.length})
       </h2>
       <div className="mt-4 space-y-2">

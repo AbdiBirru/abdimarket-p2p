@@ -40,7 +40,7 @@ export default function ReportButton({
       <button
         type="button"
         onClick={openDialog}
-        className="mx-auto mt-4 flex items-center gap-1.5 text-xs font-medium text-coffee-950/40 hover:text-brick-600"
+        className="mx-auto mt-4 flex items-center gap-1.5 text-xs font-medium text-ink/40 hover:text-brick-600"
       >
         <Flag className="h-3.5 w-3.5" />
         Report this listing
@@ -48,15 +48,15 @@ export default function ReportButton({
 
       <dialog
         ref={dialogRef}
-        className="w-[90vw] max-w-sm rounded-2xl border border-coffee-950/10 p-5 backdrop:bg-coffee-950/40"
+        className="w-[90vw] max-w-sm rounded-2xl border border-line p-5 backdrop:bg-ink/40"
       >
         <div className="flex items-center justify-between">
-          <h2 className="font-display text-lg font-bold text-coffee-950">Report listing</h2>
+          <h2 className="font-display text-lg font-bold text-ink">Report listing</h2>
           <button
             type="button"
             onClick={() => dialogRef.current?.close()}
             aria-label="Close"
-            className="text-coffee-950/40"
+            className="text-ink/40"
           >
             <X className="h-5 w-5" />
           </button>
@@ -70,7 +70,7 @@ export default function ReportButton({
           <form action={formAction} className="mt-4 space-y-3">
             <div className="space-y-1.5">
               {REPORT_REASONS.map((r) => (
-                <label key={r.value} className="flex items-center gap-2 text-sm text-coffee-950">
+                <label key={r.value} className="flex items-center gap-2 text-sm text-ink">
                   <input
                     type="radio"
                     name="reason"
@@ -86,7 +86,7 @@ export default function ReportButton({
               name="details"
               rows={3}
               placeholder="Anything else we should know? (optional)"
-              className="w-full rounded-xl border border-coffee-950/15 p-3 text-sm text-coffee-950 outline-none focus:border-marigold-500 focus:ring-2 focus:ring-marigold-500/30"
+              className="w-full rounded-xl border border-line p-3 text-sm text-ink outline-none focus:border-marigold-500 focus:ring-2 focus:ring-marigold-500/30"
             />
             {state.error && <p className="text-sm text-brick-600">{state.error}</p>}
             <button

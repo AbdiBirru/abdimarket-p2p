@@ -47,7 +47,7 @@ export default function PhotoUpload({ initialPhotos = [] }: { initialPhotos?: st
 
   return (
     <div>
-      <p className="mb-2 block text-sm font-medium text-coffee-950">
+      <p className="mb-2 block text-sm font-medium text-ink">
         Photos ({photos.filter((p) => p.url).length}/{MAX_PHOTOS})
       </p>
 
@@ -55,11 +55,11 @@ export default function PhotoUpload({ initialPhotos = [] }: { initialPhotos?: st
         {photos.map((photo, i) => (
           <div
             key={i}
-            className="relative aspect-square overflow-hidden rounded-xl border border-coffee-950/10 bg-coffee-950/5"
+            className="relative aspect-square overflow-hidden rounded-xl border border-line bg-ink/5"
           >
             {photo.uploading && (
               <div className="flex h-full items-center justify-center">
-                <Loader2 className="h-5 w-5 animate-spin text-coffee-950/40" />
+                <Loader2 className="h-5 w-5 animate-spin text-ink/40" />
               </div>
             )}
             {photo.error && (
@@ -75,7 +75,7 @@ export default function PhotoUpload({ initialPhotos = [] }: { initialPhotos?: st
                 <button
                   type="button"
                   onClick={() => removePhoto(i)}
-                  className="absolute right-1 top-1 rounded-full bg-coffee-950/70 p-1 text-cream-50"
+                  className="absolute right-1 top-1 rounded-full bg-ink/70 p-1 text-cream-50"
                   aria-label="Remove photo"
                 >
                   <X className="h-3 w-3" />
@@ -89,7 +89,7 @@ export default function PhotoUpload({ initialPhotos = [] }: { initialPhotos?: st
           <button
             type="button"
             onClick={() => inputRef.current?.click()}
-            className="flex aspect-square flex-col items-center justify-center gap-1 rounded-xl border-2 border-dashed border-coffee-950/20 text-coffee-950/50 hover:border-marigold-500 hover:text-marigold-600"
+            className="flex aspect-square flex-col items-center justify-center gap-1 rounded-xl border-2 border-dashed border-line text-ink/50 hover:border-marigold-500 hover:text-marigold-600"
           >
             <ImagePlus className="h-6 w-6" />
             <span className="text-xs">Add</span>

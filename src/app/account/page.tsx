@@ -32,30 +32,30 @@ export default async function AccountPage() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-8">
-      <h1 className="font-display text-2xl font-bold text-coffee-950">My Account</h1>
+      <h1 className="font-display text-2xl font-bold text-ink">My Account</h1>
 
       <Card className="mt-6 flex items-center gap-4 p-5">
-        <div className="flex h-14 w-14 items-center justify-center rounded-full bg-marigold-500 text-xl font-bold text-coffee-950">
+        <div className="flex h-14 w-14 items-center justify-center rounded-full bg-marigold-500 text-xl font-bold text-ink">
           {user.name.charAt(0).toUpperCase()}
         </div>
         <div>
-          <p className="font-semibold text-coffee-950">{user.name}</p>
-          <p className="text-sm text-coffee-950/60">{user.email}</p>
-          <p className="mt-1 text-xs text-coffee-950/40">Member since {memberSince}</p>
+          <p className="font-semibold text-ink">{user.name}</p>
+          <p className="text-sm text-ink/60">{user.email}</p>
+          <p className="mt-1 text-xs text-ink/40">Member since {memberSince}</p>
         </div>
       </Card>
 
       <div className="mt-4 grid grid-cols-2 gap-3">
         <Link href="/my-listings">
-          <Card className="p-4 transition-colors hover:bg-coffee-950/5">
-            <p className="text-2xl font-bold text-coffee-950">{listingCount}</p>
-            <p className="text-sm text-coffee-950/60">My Listings</p>
+          <Card className="p-4 transition-colors hover:bg-ink/5">
+            <p className="text-2xl font-bold text-ink">{listingCount}</p>
+            <p className="text-sm text-ink/60">My Listings</p>
           </Card>
         </Link>
         <Link href="/saved">
-          <Card className="p-4 transition-colors hover:bg-coffee-950/5">
+          <Card className="p-4 transition-colors hover:bg-ink/5">
             <Heart className="h-6 w-6 text-marigold-600" />
-            <p className="mt-1 text-sm text-coffee-950/60">Saved Listings</p>
+            <p className="mt-1 text-sm text-ink/60">Saved Listings</p>
           </Card>
         </Link>
       </div>

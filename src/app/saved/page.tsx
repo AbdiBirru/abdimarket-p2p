@@ -15,8 +15,8 @@ export default async function SavedListingsPage() {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
-      <h1 className="font-display text-2xl font-bold text-coffee-950">Saved Listings</h1>
-      <p className="mt-1 text-sm text-coffee-950/60">
+      <h1 className="font-display text-2xl font-bold text-ink">Saved Listings</h1>
+      <p className="mt-1 text-sm text-ink/60">
         Items you&apos;ve saved to check out later.
       </p>
       <div className="mt-6">

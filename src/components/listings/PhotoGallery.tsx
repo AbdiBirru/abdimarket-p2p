@@ -48,7 +48,7 @@ export default function PhotoGallery({
               key={i}
               className={cn(
                 "h-1.5 rounded-full transition-all",
-                i === active ? "w-4 bg-marigold-500" : "w-1.5 bg-coffee-950/20"
+                i === active ? "w-4 bg-marigold-500" : "w-1.5 bg-ink/20"
               )}
             />
           ))}

@@ -12,7 +12,7 @@ import { type MyListingData } from "@/lib/listings";
 
 const STATUS_STYLES: Record<string, string> = {
   ACTIVE: "bg-eucalyptus-600/10 text-eucalyptus-600",
-  SOLD: "bg-coffee-950/10 text-coffee-950/60",
+  SOLD: "bg-ink/10 text-ink/60",
   REMOVED: "bg-brick-600/10 text-brick-600",
 };
 
@@ -51,13 +51,13 @@ export default function MyListingRow({ listing }: { listing: MyListingData }) {
   return (
     <Card className="p-3">
       <div className="flex gap-3">
-        <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg bg-coffee-950/5">
+        <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg bg-ink/5">
           <Image src={listing.photos[0]} alt={listing.title} fill sizes="64px" className="object-cover" />
         </div>
 
         <div className="min-w-0 flex-1">
-          <p className="truncate text-sm font-semibold text-coffee-950">{listing.title}</p>
-          <p className="mt-0.5 font-mono text-sm text-coffee-950/80">{formatPrice(listing.price)}</p>
+          <p className="truncate text-sm font-semibold text-ink">{listing.title}</p>
+          <p className="mt-0.5 font-mono text-sm text-ink/80">{formatPrice(listing.price)}</p>
           <span className={`mt-1 inline-block rounded-full px-2 py-0.5 text-xs font-medium ${STATUS_STYLES[listing.status]}`}>
             {listing.status === "ACTIVE" ? "Active" : listing.status === "SOLD" ? "Sold" : "Removed by admin"}
           </span>
@@ -67,10 +67,10 @@ export default function MyListingRow({ listing }: { listing: MyListingData }) {
       {error && <p className="mt-2 text-xs text-brick-600">{error}</p>}
 
       {!isRemoved && (
-        <div className="mt-3 flex gap-2 border-t border-coffee-950/10 pt-3">
+        <div className="mt-3 flex gap-2 border-t border-line pt-3">
           <Link
             href={`/sell/${listing.id}/edit`}
-            className="flex flex-1 items-center justify-center gap-1.5 rounded-lg py-2 text-xs font-medium text-coffee-950 hover:bg-coffee-950/5"
+            className="flex flex-1 items-center justify-center gap-1.5 rounded-lg py-2 text-xs font-medium text-ink hover:bg-ink/5"
           >
             <Pencil className="h-3.5 w-3.5" />
             Edit
@@ -78,7 +78,7 @@ export default function MyListingRow({ listing }: { listing: MyListingData }) {
           <button
             onClick={handleToggleSold}
             disabled={isPending}
-            className="flex flex-1 items-center justify-center gap-1.5 rounded-lg py-2 text-xs font-medium text-coffee-950 hover:bg-coffee-950/5 disabled:opacity-50"
+            className="flex flex-1 items-center justify-center gap-1.5 rounded-lg py-2 text-xs font-medium text-ink hover:bg-ink/5 disabled:opacity-50"
           >
             {listing.status === "SOLD" ? (
               <>

@@ -27,8 +27,8 @@ export default async function EditListingPage({
 
   return (
     <div className="mx-auto max-w-lg px-4 py-8">
-      <h1 className="font-display text-2xl font-bold text-coffee-950">Edit listing</h1>
-      <p className="mt-1 text-sm text-coffee-950/60">
+      <h1 className="font-display text-2xl font-bold text-ink">Edit listing</h1>
+      <p className="mt-1 text-sm text-ink/60">
         Update the details below and save your changes.
       </p>
       <Card className="mt-6 p-5">

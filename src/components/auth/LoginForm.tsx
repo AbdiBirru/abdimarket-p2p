@@ -16,14 +16,14 @@ export default function LoginForm({ callbackUrl }: { callbackUrl?: string }) {
       <input type="hidden" name="redirectTo" value={callbackUrl ?? "/"} />
 
       <div>
-        <label htmlFor="email" className="mb-1 block text-sm font-medium text-coffee-950">
+        <label htmlFor="email" className="mb-1 block text-sm font-medium text-ink">
           Email
         </label>
         <Input id="email" name="email" type="email" required placeholder="you@example.com" />
       </div>
 
       <div>
-        <label htmlFor="password" className="mb-1 block text-sm font-medium text-coffee-950">
+        <label htmlFor="password" className="mb-1 block text-sm font-medium text-ink">
           Password
         </label>
         <Input id="password" name="password" type="password" required placeholder="Your password" />
@@ -39,7 +39,7 @@ export default function LoginForm({ callbackUrl }: { callbackUrl?: string }) {
         {isPending ? "Logging in..." : "Log in"}
       </Button>
 
-      <p className="text-center text-sm text-coffee-950/60">
+      <p className="text-center text-sm text-ink/60">
         New to AbdiMarket-P2P?{" "}
         <Link href="/register" className="font-semibold text-marigold-600">
           Create an account
