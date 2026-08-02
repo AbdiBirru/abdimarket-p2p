@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Home, Search, PlusCircle, Heart, User } from "lucide-react";
+import { Home, PlusCircle, Heart, User } from "lucide-react";
 import { auth } from "@/auth";
 
 export default async function BottomNav() {
@@ -11,10 +11,6 @@ export default async function BottomNav() {
       <Link href="/" className="flex flex-col items-center gap-1 px-3 py-1 text-ink">
         <Home className="h-6 w-6" />
         <span className="text-xs">Home</span>
-      </Link>
-      <Link href="/" className="flex flex-col items-center gap-1 px-3 py-1 text-ink-muted">
-        <Search className="h-6 w-6" />
-        <span className="text-xs">Search</span>
       </Link>
       <Link href="/sell" className="flex flex-col items-center gap-1 px-3 py-1 text-marigold-600">
         <PlusCircle className="h-7 w-7" />
