@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { Heart } from "lucide-react";
+import { Heart, ShieldCheck } from "lucide-react";
 import { auth, signOut } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import Card from "@/components/ui/Card";
@@ -14,7 +14,7 @@ export default async function AccountPage() {
 
   const user = await prisma.user.findUnique({
     where: { id: session.user.id },
-    select: { name: true, email: true, createdAt: true },
+    select: { name: true, email: true, createdAt: true, role: true },
   });
 
   if (!user) {
@@ -59,6 +59,18 @@ export default async function AccountPage() {
           </Card>
         </Link>
       </div>
+
+      {user.role === "ADMIN" && (
+        <Link href="/admin" className="mt-3 block">
+          <Card className="flex items-center gap-3 p-4 transition-colors hover:bg-ink/5">
+            <ShieldCheck className="h-6 w-6 text-marigold-600" />
+            <div>
+              <p className="text-sm font-semibold text-ink">Admin Dashboard</p>
+              <p className="text-xs text-ink/60">Manage listings, users, and reports</p>
+            </div>
+          </Card>
+        </Link>
+      )}
 
       <form
         action={async () => {
