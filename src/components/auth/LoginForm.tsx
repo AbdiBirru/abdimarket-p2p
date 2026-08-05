@@ -23,23 +23,26 @@ export default function LoginForm({ callbackUrl }: { callbackUrl?: string }) {
       </div>
 
       <div>
-        <label htmlFor="password" className="mb-1 block text-sm font-medium text-ink">
-          Password
-        </label>
+        <div className="mb-1 flex items-center justify-between">
+          <label htmlFor="password" className="block text-sm font-medium text-ink">
+            Password
+          </label>
+          <Link href="/forgot-password" className="text-xs font-medium text-marigold-600">
+            Forgot password?
+          </Link>
+        </div>
         <Input id="password" name="password" type="password" required placeholder="Your password" />
       </div>
 
       {state.error && (
-        <p className="rounded-lg bg-brick-600/10 px-3 py-2 text-sm text-brick-600">
-          {state.error}
-        </p>
+        <p className="rounded-lg bg-brick-600/10 px-3 py-2 text-sm text-brick-600">{state.error}</p>
       )}
 
       <Button type="submit" disabled={isPending} className="w-full">
         {isPending ? "Logging in..." : "Log in"}
       </Button>
 
-      <p className="text-center text-sm text-ink/60">
+      <p className="text-center text-sm text-ink-muted">
         New to AbdiMarket-P2P?{" "}
         <Link href="/register" className="font-semibold text-marigold-600">
           Create an account

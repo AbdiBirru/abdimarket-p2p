@@ -53,17 +53,18 @@ enum Role {
 }
 
 model User {
-  id              String         @id @default(cuid())
-  email           String         @unique
-  password        String
-  name            String
-  role            Role           @default(USER)
-  createdAt       DateTime       @default(now())
-  listings        Listing[]
-  savedListings   SavedListing[]
-  reports         Report[]
-  reviewsReceived Review[]       @relation("SellerReviews")
-  reviewsWritten  Review[]       @relation("ReviewerReviews")
+  id                  String               @id @default(cuid())
+  email               String               @unique
+  password            String
+  name                String
+  role                Role                 @default(USER)
+  createdAt           DateTime             @default(now())
+  listings            Listing[]
+  savedListings       SavedListing[]
+  reports             Report[]
+  reviewsReceived     Review[]             @relation("SellerReviews")
+  reviewsWritten      Review[]             @relation("ReviewerReviews")
+  passwordResetTokens PasswordResetToken[]
 }
 
 model Listing {
@@ -128,4 +129,14 @@ model Review {
   reviewerId String
 
   @@unique([sellerId, reviewerId])
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  tokenHash String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
 }
